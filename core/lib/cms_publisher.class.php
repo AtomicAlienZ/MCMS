@@ -901,7 +901,7 @@ class cms_publisher extends cms_core {
 				trigger_error('Plugin interface failed, undefined class: ' . $handler_class_name . ' in ' . basename($handler_file), E_USER_WARNING);
 				return false;
 			}
-			$content_handler = &new $handler_class_name();
+			$content_handler = new $handler_class_name();
 			$content_handler->plugin = $handler;
 			$content_handler->cms = &$this;
 			$content_handler->page_info = &$this->page_info;

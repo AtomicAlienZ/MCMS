@@ -469,7 +469,7 @@ class cms_structure {
                 }
             }
 
-            $content_handler             = &new $informer_class_name();
+            $content_handler             = new $informer_class_name();
             $content_handler->plugin     = $handler;
             $content_handler->cms  	 = &$this->cms;
             $content_handler->dbc        = &$this->cms->dbc;

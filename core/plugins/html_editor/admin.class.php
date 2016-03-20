@@ -1,4 +1,4 @@
-<?
+<?php
 class plugin_admin_interface extends cms_plugin_admin {
     var $plugin = array();
     var $config = array();

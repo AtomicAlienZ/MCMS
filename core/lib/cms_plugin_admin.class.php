@@ -11,7 +11,7 @@ class cms_plugin_admin {
     var $cms         = '';
 
     function init_fob($form_name, $form_action) {
-        $fob = &new form_builder($form_name, $form_action, 'post', '', '', '', 'multipart/form-data');
+        $fob = new form_builder($form_name, $form_action, 'post', '', '', '', 'multipart/form-data');
 /*
         $fob->templates['form'] = "\n<table aligh=center border=0 cellspacing=0 cellpadding=0 class=fob-table>\n[#form]\n[#main]\n</table></form><br><br>\n";
         $fob->templates['input'] = "\n<tr><td width=120 valign=top class=fob-td><b>[#title]</b>[#required]<br>[#description]</td><td class=fob-td>\n[#input]&nbsp;<small>[#caption]</small>[#error]</td></tr>";

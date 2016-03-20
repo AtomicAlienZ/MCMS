@@ -435,7 +435,7 @@ class cms_admin extends cms_core
             if ((array_key_exists('submenu_function', $this->plugins[$p_name]))) {
                 $submenu_class = $this->plugins[$p_name]['name'] . '_submenu';
                 include_once($this->plugins[$p_name]['path'] . 'submenu.class.php');
-                $submenu = &new $submenu_class();
+                $submenu = new $submenu_class();
                 $submenu->plugin = $this->plugins[$p_name];
                 $submenu->cms = &$this;
                 $menu1 = $submenu->main();
@@ -496,7 +496,7 @@ class cms_admin extends cms_core
         //$this->set_template_var('theme_url', 'themes/'.$this->theme.'/');
 
         $content = $this->parse_template($this->template_variables, $template);
-        /*$parser = &new strcom_parser();
+        /*$parser = new strcom_parser();
         $variables = $parser->gettagslist($content, $this->tpl_prefix, $this->tpl_suffix);
         while (list(, $var) = each($variables)) {
         $content = str_replace($this->tpl_prefix.$var.$this->tpl_suffix,'',$content);
@@ -508,7 +508,7 @@ class cms_admin extends cms_core
     {
         if (file_exists($this->plugins[$active_plugin]['path'] . 'admin.class.php')) {
             include_once($this->plugins[$active_plugin]['path'] . 'admin.class.php');
-            $plugin_ai = &new plugin_admin_interface();
+            $plugin_ai = new plugin_admin_interface();
             $plugin_ai->plugin = $this->plugins[$active_plugin];
             $plugin_ai->cms = &$this;
             $plugin_ai->dbc = &$this->dbc;
@@ -732,7 +732,7 @@ class cms_admin extends cms_core
         if (is_object($this->message_box)) {
             return true;
         }
-        $this->message_box = &new message_box($this->admin_url . 'img/');
+        $this->message_box = new message_box($this->admin_url . 'img/');
         $this->parse_template(array(), 'message_box_body', false);
         $this->parse_template(array(), 'message_box_message', false);
         $this->parse_template(array(), 'message_box_button', false);
@@ -853,7 +853,7 @@ class cms_admin extends cms_core
         }
 
         if ($clean) {
-            $parser = &new strcom_parser();
+            $parser = new strcom_parser();
             $variables = $parser->gettagslist($content, $this->tpl_prefix, $this->tpl_suffix);
 
             while (list(, $var) = each($variables)) {

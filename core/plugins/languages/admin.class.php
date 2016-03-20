@@ -402,7 +402,7 @@ class plugin_admin_interface  extends cms_plugin_admin{
         require_once(cms_PATH_TOOLS.'languages.inc.php');
         $this->cms->init_dbc();
         $this->dbc = &$this->cms->dbc;
-		$this->lang = &new cmsLanguages;
+		$this->lang = new cmsLanguages;
 		$this->lang->initLanguages($this);
 		$this->lang->dbc = &$this->dbc;
 		$this->lang->cms = &$this->cms;

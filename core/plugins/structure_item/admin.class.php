@@ -30,7 +30,7 @@ class plugin_admin_interface extends cms_structure{
 
 
     function init_fob($form_name, $form_action) {
-        $fob = &new form_builder($form_name, $form_action, 'post', '', '', '', 'multipart/form-data');
+        $fob = new form_builder($form_name, $form_action, 'post', '', '', '', 'multipart/form-data');
         return $fob;
     }
 
@@ -730,7 +730,7 @@ class plugin_admin_interface extends cms_structure{
                     return false;
                 }
             }
-            $content_handler = &new $informer_class_name();
+            $content_handler = new $informer_class_name();
             $content_handler->plugin = $handler;
             $content_handler->cms = &$this->cms;
             $content_handler->dbc = &$this->cms->dbc;

@@ -124,7 +124,7 @@ class InstallDB {
 			$columnsInDB = $this->GetFields($name);
 			foreach($this->tablesColumn[$name] as $column => $type) {
 				if ($column != "primarykey" && !array_search($column, $columnsInDB)) {
-					$sql = "ALTER TABLE ".$name." ADD COLUMN ".$column." ".$type."";
+					$sql = "ALTER TABLE ".$name." ADD COLUMN ".$column." ".implode(', ', $type)."";
 					$this->dbc->Execute($sql);
 				}
 			}

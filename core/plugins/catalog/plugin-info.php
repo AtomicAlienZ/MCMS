@@ -7,5 +7,3 @@ $plugin = array (
 	'm_properties' => false,
 	'menu'         => false
 );
-
-?>

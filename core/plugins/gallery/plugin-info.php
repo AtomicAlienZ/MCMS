@@ -1,4 +1,4 @@
-<?
+<?php
 
 $plugin = array (
         'group'            => 'structure',
@@ -6,5 +6,3 @@ $plugin = array (
         'title'            => 'Фотогалерея',
         'menu'             => false,
          );
-
-?>

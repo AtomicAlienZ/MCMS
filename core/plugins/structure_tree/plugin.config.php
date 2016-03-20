@@ -1,4 +1,4 @@
-<?
+<?php
  $plugin_config = array (
 		'view_options' => array(
 							'depth_limit'     => 3,
@@ -6,5 +6,3 @@
 							'expand_disabled' => 0
 							)
      );
-
-?>

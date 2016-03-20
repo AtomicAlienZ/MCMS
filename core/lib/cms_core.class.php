@@ -165,7 +165,7 @@ class cms_core {
 		}
 		include_once($this->lib_path . 'adodb/adodb.inc.php');
 		$ADODB_CACHE_DIR = $this->cache_path;
-		$this->dbc = &ADONewConnection(ROOT_DB_DRIVER);
+		$this->dbc = ADONewConnection(ROOT_DB_DRIVER);
 		$this->dbc->cacheSecs = $this->db_cache_interval;
 //		$this->dbc->debug = PM_DEBUG;
 		$this->dbc->debug = false;
@@ -197,7 +197,7 @@ class cms_core {
 			trigger_error('Класс cms_structure не найден', E_USER_ERROR);
 			return false;
 		}
-		$this->structure = &new cms_structure();
+		$this->structure = new cms_structure();
 		$this->structure->dbc = &$this->dbc;
 		$this->structure->cms = &$this;
 		return true;
@@ -365,7 +365,7 @@ class cms_core {
 		if (!empty($this->install) && is_object($this->install)) {
 			return true;
 		}
-		$this->install = &new InstallDB;
+		$this->install = new InstallDB;
 		$this->install->dbc = &$this->dbc;
 	}
 

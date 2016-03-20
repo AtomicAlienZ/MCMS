@@ -1,4 +1,4 @@
-<?
+<?php
 $plugin = array (
         'submenu_function' => true,
         'group'            => 'structure',

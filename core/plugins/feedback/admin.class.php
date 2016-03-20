@@ -13,7 +13,7 @@ class plugin_admin_interface extends cms_plugin_admin {
         var $default_width  = 150;
 
     function init_fob($form_name, $form_action) {
-		$fob = &new form_builder($form_name, $form_action, 'post', '', '', '', 'multipart/form-data');
+		$fob = new form_builder($form_name, $form_action, 'post', '', '', '', 'multipart/form-data');
 		return $fob;
     }
 

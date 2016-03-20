@@ -1,4 +1,4 @@
-<?
+<?php
 $plugin = array (
         'group'            => 'structure',
         'name'             => 'sim',

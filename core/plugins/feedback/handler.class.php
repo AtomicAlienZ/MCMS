@@ -40,7 +40,7 @@ class feedback_handler {
 			require_once(cms_LIB_PATH.'mail_event.class.php');
 			require_once(cms_LIB_PATH.'email_message.class.php');
 			require_once(cms_LIB_PATH.'strcom_parser.class.php');
-			$mail_event = &new mail_event($this->plugin['path'].'tpls/mail/', '.tpl'); 
+			$mail_event = new mail_event($this->plugin['path'].'tpls/mail/', '.tpl');
 
 			foreach ($block['mail'] as $key=>$val) {
 				if ($val!='')

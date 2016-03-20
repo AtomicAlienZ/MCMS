@@ -574,7 +574,7 @@ class gallery_handler
         require_once(cms_LIB_PATH . 'email_message.class.php');
         require_once(cms_LIB_PATH . 'strcom_parser.class.php');
         require_once(cms_LIB_PATH . "validate.php");
-        $mail_event = & new mail_event($this->plugin['path'] . 'tpls/mail/', '.tpl');
+        $mail_event = new mail_event($this->plugin['path'] . 'tpls/mail/', '.tpl');
         $data['comment'] = trim($_POST['comment']);
         $item_path = str_replace("ru/", "", end($this->page_info["path"]));
         $item_path = preg_replace("/nid\/(\d+\/$)/", "nid_$1", $item_path["url"]);

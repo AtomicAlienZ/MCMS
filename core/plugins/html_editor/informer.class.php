@@ -1,4 +1,4 @@
-<?
+<?php
 class html_editor_informer {
     var $plugin = array();
     var $config = array();

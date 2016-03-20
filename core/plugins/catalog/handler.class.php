@@ -1618,7 +1618,7 @@ class catalog_handler {
                     require_once(cms_LIB_PATH . 'mail_event.class.php');
                     require_once(cms_LIB_PATH . 'email_message.class.php');
                     require_once(cms_LIB_PATH . 'strcom_parser.class.php');
-                    $mail_event = &new mail_event($this->plugin['path'] . 'tpls/' . $block["tpl"] . '/mail/', '.tpl');
+                    $mail_event = new mail_event($this->plugin['path'] . 'tpls/' . $block["tpl"] . '/mail/', '.tpl');
 
                     // Формируем таблицу с описанием заказа
                     $basket_table = "<table class=\"basket\">\n";
@@ -1835,7 +1835,7 @@ class catalog_handler {
                     if (!isset($block["tpl"])) {
                         $block["tpl"] = 'preorder';
                     }
-                    $mail_event = &new mail_event($this->plugin['path'] . 'tpls/' . $block["tpl"] . '/mail/', '.tpl');
+                    $mail_event = new mail_event($this->plugin['path'] . 'tpls/' . $block["tpl"] . '/mail/', '.tpl');
 
                     // Формируем таблицу с описанием заказа
                     $basket_table = "Название товара: " . $record["title"];
@@ -3636,7 +3636,7 @@ class catalog_handler {
         require_once(cms_LIB_PATH . 'mail_event.class.php');
         require_once(cms_LIB_PATH . 'email_message.class.php');
         require_once(cms_LIB_PATH . 'strcom_parser.class.php');
-        $mail_event = &new mail_event($this->plugin['path'] . 'tpls/send/', '.tpl');
+        $mail_event = new mail_event($this->plugin['path'] . 'tpls/send/', '.tpl');
 
         $form_info['site_url'] = ROOT_URL;
         //		$form_info['manager_email'] = $form_info["sendToEmail"]; //MANAGER_EMAIL;

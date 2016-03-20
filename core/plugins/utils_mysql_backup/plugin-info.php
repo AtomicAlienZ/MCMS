@@ -1,4 +1,4 @@
-<?
+<?php
 $plugin = array (
         'group'            => 'modules',
         'name'             => 'mysql_backup',

@@ -18,7 +18,7 @@ if (!class_exists('cms_publisher')) {
     die('Configuration error.');
 }
 
-$cms = & new cms_publisher();
+$cms = new cms_publisher();
 $pageContent = $cms->display('default');
 $pageContent = str_replace(array("/ru/"), array("/"), $pageContent);
 echo $pageContent;
