@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>CMS</title>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="/admin/css/cms.css" rel="stylesheet" type="text/css">
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>

@@ -1,5 +1,5 @@
 {php}
-	//Для отладки
+	//Р”Р»СЏ РѕС‚Р»Р°РґРєРё
 	//echo '<pre>'; print_r($this->_tpl_vars['output']['navi']); echo '</pre>';
 	//echo '<pre>'; print_r($this->_tpl_vars['output']); echo '</pre>';
 {/php}
@@ -10,7 +10,7 @@
 {/php}
 
 {if $output.MainCatalogPage}
-	<!-- Главная страница каталога -->
+	<!-- Р“Р»Р°РІРЅР°СЏ СЃС‚СЂР°РЅРёС†Р° РєР°С‚Р°Р»РѕРіР° -->
 	{if $output.MainCatalogPageFolders.items_new_count > 0}
 		{assign var='items' value=$output.MainCatalogPageFolders.items_new}
 		{section loop=$items name=key}
@@ -28,7 +28,7 @@
 								<a href="{$item2.full_relative_url}">{$item2.title_ru}</a>{if !$smarty.section.key2.last},&nbsp;{/if}
 							{/section}
 						{else}
-							<div style="padding: 10px; font-weight: bold; height: 62px; text-align: center; line-height: 64px;">В этом разделе пока пусто!</div>
+							<div style="padding: 10px; font-weight: bold; height: 62px; text-align: center; line-height: 64px;">Р’ СЌС‚РѕРј СЂР°Р·РґРµР»Рµ РїРѕРєР° РїСѓСЃС‚Рѕ!</div>
 						{/if}
 					</div>
 				</div>
@@ -46,10 +46,10 @@
 	{/php}
 	
 {else}
-	<!-- Не главная страница каталога -->
-	<!-- Если это первая подкатегория -->
+	<!-- РќРµ РіР»Р°РІРЅР°СЏ СЃС‚СЂР°РЅРёС†Р° РєР°С‚Р°Р»РѕРіР° -->
+	<!-- Р•СЃР»Рё СЌС‚Рѕ РїРµСЂРІР°СЏ РїРѕРґРєР°С‚РµРіРѕСЂРёСЏ -->
 	{if $output.CatalogLevel2}
-		<!-- Подкатегория -->
+		<!-- РџРѕРґРєР°С‚РµРіРѕСЂРёСЏ -->
 		{if $output.CatalogLevelCategoryCount > 0}
 			{assign var='items' value=$output.CatalogLevelCategoryItems}
 			{section loop=$items name=key}
@@ -61,7 +61,7 @@
 					<div class="cld-c-2-main">
 						<div class="cld-c-p">
 							{if $item.NextFoldersCount > 0}
-								<div><b>10 популярных товаров:</b></div>
+								<div><b>10 РїРѕРїСѓР»СЏСЂРЅС‹С… С‚РѕРІР°СЂРѕРІ:</b></div>
 								<div>
 									{assign var='items2' value=$item.NextFolders}
 									{section loop=$items2 name=key2}
@@ -75,7 +75,7 @@
 									{/section}
 								</div>
 							{else}
-								<div style="padding: 10px; font-weight: bold; height: 62px; text-align: center; line-height: 64px;">В этом разделе пока пусто!</div>
+								<div style="padding: 10px; font-weight: bold; height: 62px; text-align: center; line-height: 64px;">Р’ СЌС‚РѕРј СЂР°Р·РґРµР»Рµ РїРѕРєР° РїСѓСЃС‚Рѕ!</div>
 							{/if}
 						</div>
 					</div>
@@ -93,7 +93,7 @@
 		{/php}
 		
 	{else}
-		<!-- Список товаров -->
+		<!-- РЎРїРёСЃРѕРє С‚РѕРІР°СЂРѕРІ -->
 		{php}
 			global $IsCatalogSubCategory;
 			$IsCatalogSubCategory = true;
@@ -101,9 +101,9 @@
 		
 		{if $output.count_items > 0}
 			<div id="view-switch">
-				<div id="vs-list" class="active">Список</div>
-				<div id="vs-small">Маленькие картинки</div>
-				<div id="vs-big">Большие картинки</div>
+				<div id="vs-list" class="active">РЎРїРёСЃРѕРє</div>
+				<div id="vs-small">РњР°Р»РµРЅСЊРєРёРµ РєР°СЂС‚РёРЅРєРё</div>
+				<div id="vs-big">Р‘РѕР»СЊС€РёРµ РєР°СЂС‚РёРЅРєРё</div>
 			</div>
 			<div class="clr">&nbsp;</div>
 			<div id="subcategory">
@@ -131,7 +131,7 @@
 							</div>
 							<div class="s-i-descr">
 								
-								<!--<div class="ci-label">Характеристики</div>-->
+								<!--<div class="ci-label">РҐР°СЂР°РєС‚РµСЂРёСЃС‚РёРєРё</div>-->
 								<div class="table">
 									{foreach from=$item2.additional item=additional}
 										{if $additional.type neq "multipleprice"}
@@ -154,13 +154,13 @@
 									{/foreach}
 								</div>
 								
-								<!--Описание товара: короткое, ненавязчивое, но дающее полную и важную информацию о том, что собирается купить посетитель.-->
+								<!--РћРїРёСЃР°РЅРёРµ С‚РѕРІР°СЂР°: РєРѕСЂРѕС‚РєРѕРµ, РЅРµРЅР°РІСЏР·С‡РёРІРѕРµ, РЅРѕ РґР°СЋС‰РµРµ РїРѕР»РЅСѓСЋ Рё РІР°Р¶РЅСѓСЋ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ С‚РѕРј, С‡С‚Рѕ СЃРѕР±РёСЂР°РµС‚СЃСЏ РєСѓРїРёС‚СЊ РїРѕСЃРµС‚РёС‚РµР»СЊ.-->
 							</div>
 							<div class="s-i-add">
 								{if $item2.state eq 0 && $item2.price>0}
-									<a href="#" onclick="addBasket('{$output.catalog_path}', '{$output.basket_url}', '{$item2.title|escape:"quotes"|escape:"html"}', {$item2.id}, true, 1, '{$additional_item}'); return false;">Добавить в корзину</a>
+									<a href="#" onclick="addBasket('{$output.catalog_path}', '{$output.basket_url}', '{$item2.title|escape:"quotes"|escape:"html"}', {$item2.id}, true, 1, '{$additional_item}'); return false;">Р”РѕР±Р°РІРёС‚СЊ РІ РєРѕСЂР·РёРЅСѓ</a>
 								{else}
-									<a href="/{$lang}/catalog/preorder/cid_{$item2.id}/">Уведомить о наличии</a>
+									<a href="/{$lang}/catalog/preorder/cid_{$item2.id}/">РЈРІРµРґРѕРјРёС‚СЊ Рѕ РЅР°Р»РёС‡РёРё</a>
 								{/if}
 							</div>
 						</div>
@@ -169,8 +169,8 @@
 			</div>
 			<div id="paginator">
 				{if $output.navi.pages_total >= 2}
-					{if $output.navi.prev != ''}<a id="prev" href="{$output.navi.prev}">предыдущая</a>{/if}
-					{if $output.navi.next != ''}<a id="next" href="{$output.navi.next}">следующая</a>{/if}
+					{if $output.navi.prev != ''}<a id="prev" href="{$output.navi.prev}">РїСЂРµРґС‹РґСѓС‰Р°СЏ</a>{/if}
+					{if $output.navi.next != ''}<a id="next" href="{$output.navi.next}">СЃР»РµРґСѓСЋС‰Р°СЏ</a>{/if}
 				{/if}
 				<ul id="pag-list">
 					{if $output.navi.pages_total >= 2}
@@ -200,7 +200,7 @@
 				$_SESSION['FILTER_ADD_FIELDS'] = false;
 				$_SESSION['FILTER_ADD_FIELDS_BUFFER'] = false;
 			{/php}
-			<div style="padding: 10px; font-weight: bold; height: 62px; text-align: center; line-height: 64px;">В этом разделе пока пусто!</div>
+			<div style="padding: 10px; font-weight: bold; height: 62px; text-align: center; line-height: 64px;">Р’ СЌС‚РѕРј СЂР°Р·РґРµР»Рµ РїРѕРєР° РїСѓСЃС‚Рѕ!</div>
 		{/if}
 	{/if}
 {/if}

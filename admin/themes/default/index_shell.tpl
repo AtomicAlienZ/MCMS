@@ -4,7 +4,7 @@
 <title>CMS</title>
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="/admin/css/cms.css" rel="stylesheet" type="text/css">
     <link href="/admin/css/style.css" rel="stylesheet" type="text/css">
 

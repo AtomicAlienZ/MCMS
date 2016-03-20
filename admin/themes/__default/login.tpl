@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>{$title}</title>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex,nofollow"> 
 <meta name="Cache-control" content="no-cache, must-revalidate">
 <meta name="Pragma" content="no-cache">
@@ -40,27 +40,27 @@ function focusLogin(the_form, field_name){
       <div class="shadow">
       
         <div class="h"><div class="l"><div class="r">
-          <div class="title-s">Добро пожаловать</div>
-          <div class="title">Добро пожаловать</div>
+          <div class="title-s">Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ</div>
+          <div class="title">Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ</div>
         </div></div></div>
         <div class="fields"><div class="fields-bot">
         <form name="fob" method="post" action="index.php" enctype="multipart/form-data">
         <table width="100%">
         <tr class="top">
-        	<td class="l"><label for="fob[login]">Логин</label></td>
+        	<td class="l"><label for="fob[login]">Р›РѕРіРёРЅ</label></td>
         	<td class="f"><input type="Text" class="text" name="fob[login]"></td>
         </tr>
         <tr>
-        	<td class="l"><label for="fob[password]">Пароль</label></td>
+        	<td class="l"><label for="fob[password]">РџР°СЂРѕР»СЊ</label></td>
         	<td class="f"><input type="Password" class="text" name="fob[password]"></td>
         </tr>
         <tr>
-        	<td class="l"><label for="fob[member]">Запомнить</label></td>
+        	<td class="l"><label for="fob[member]">Р—Р°РїРѕРјРЅРёС‚СЊ</label></td>
         	<td class="f"><input type="checkbox" name="fob[member]" value=1></td>
         </tr>
         <tr class="bot">
           <td>&nbsp;</td>
-          <td class="f"><div class="submit"><input type="Submit" class="button" name="fob[submit]" value="Вход"></div></td>
+          <td class="f"><div class="submit"><input type="Submit" class="button" name="fob[submit]" value="Р’С…РѕРґ"></div></td>
         </tr>
         </table>
         </form>

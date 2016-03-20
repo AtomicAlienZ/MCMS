@@ -832,7 +832,7 @@ class catalog_handler {
 //
 //                    $items = $this->get_items($a['id'], $a, 4);
 
-                $a['for_filters'] = $addit;
+//                $a['for_filters'] = $addit;
 
                 $CatalogFolders[] = $a;
             }

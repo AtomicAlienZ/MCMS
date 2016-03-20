@@ -1,4 +1,4 @@
-{debug}
+{*{debug}*}
 
 {if $output.CatalogFolders neq ''}
 	<div class="news">
