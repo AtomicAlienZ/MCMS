@@ -1,0 +1,1 @@
+[<a title="{$title}" href="{$url}" style="font-size: 80%;">{$title}</a>]&nbsp;

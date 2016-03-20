@@ -1,0 +1,6 @@
+<IfModule expires_module>
+ ExpiresActive off
+</IfModule>
+DirectoryIndex index.php
+RewriteEngine off
+

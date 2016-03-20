@@ -1,0 +1,16 @@
+DirectoryIndex index.php index.html index.htm
+
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !\.(jpg|jpeg|gif|styl|png|css|zip|doc|php|js|pdf|txt|ico|djvu|svg|json)$
+RewriteCond %{REQUEST_FILENAME} !content/(.*)$
+RewriteCond %{REQUEST_FILENAME} !kcfinder/(.*)$
+RewriteCond %{REQUEST_FILENAME} !js/(.*)$
+RewriteCond %{REQUEST_FILENAME} !nemo.travel/(.*)$
+RewriteCond %{REQUEST_FILENAME} !css/(.*)$
+RewriteCond %{REQUEST_FILENAME} !img/(.*)$
+RewriteRule ^(.*)$ /index.php [L]
+
+Options -Indexes
+IndexIgnore */*

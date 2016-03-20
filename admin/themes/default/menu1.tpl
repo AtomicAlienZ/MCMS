@@ -1,0 +1,1 @@
+<div class="str-mini str-mini-bg">{$output}</div>

@@ -1,0 +1,1 @@
+<div class="b-admin-tabs">{$tabs}</div>

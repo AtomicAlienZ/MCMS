@@ -1,0 +1,1 @@
+<a href="{$group_url}">{$title}</a>

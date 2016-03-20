@@ -1,0 +1,1 @@
+<select id="cm{$menu_id}">{$options}</select>&nbsp;<input type="Button" class="button" onclick="cm_go('cm{$menu_id}'); return false;" value="&nbsp;+&nbsp;">

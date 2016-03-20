@@ -1,0 +1,22 @@
+
+
+#<IfModule expires_module>
+# ExpiresActive off
+#</IfModule>
+#DirectoryIndex index.php
+#RewriteEngine off
+#php_value upload_max_filesize 100M
+#php_value post_max_size 100M
+
+RewriteEngine on
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_URI} !\.(jpg|jpeg|gif|png|css|zip|doc|js|pdf|txt|ico|djvu|svg|ai)$
+#RewriteRule ^(.*)$ /index.php [L]
+
+#php_value upload_max_filesize 100M
+#php_value post_max_size 100M
+
+Options -Indexes
+IndexIgnore */*
+

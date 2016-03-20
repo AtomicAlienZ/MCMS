@@ -1,0 +1,1 @@
+<h2><span>{$message}</span></h2>
