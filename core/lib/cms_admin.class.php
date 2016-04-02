@@ -437,7 +437,7 @@ class cms_admin extends cms_core
                 include_once($this->plugins[$p_name]['path'] . 'submenu.class.php');
                 $submenu = new $submenu_class();
                 $submenu->plugin = $this->plugins[$p_name];
-                $submenu->cms = &$this;
+                $submenu->cms = $this;
                 $menu1 = $submenu->main();
             } else {
                 $p_info['url'] = $this->format_url($p_name);
@@ -510,8 +510,8 @@ class cms_admin extends cms_core
             include_once($this->plugins[$active_plugin]['path'] . 'admin.class.php');
             $plugin_ai = new plugin_admin_interface();
             $plugin_ai->plugin = $this->plugins[$active_plugin];
-            $plugin_ai->cms = &$this;
-            $plugin_ai->dbc = &$this->dbc;
+            $plugin_ai->cms = $this;
+            $plugin_ai->dbc = $this->dbc;
             if (file_exists($this->plugins[$active_plugin]['path'] . 'plugin.config.php')) {
                 include_once($this->plugins[$active_plugin]['path'] . 'plugin.config.php');
                 $plugin_ai->config = $plugin_config;
@@ -862,6 +862,46 @@ class cms_admin extends cms_core
         }
 
         return $content;
+    }
+
+    public function getSmartyTemplateResult($plugin, $template, $data = array()) {
+        if (!is_object($this->smarty)) {
+            require_once(SMARTY_DIR . 'Smarty.class.php');
+            $smarty = new Smarty;
+            /*
+			$smarty->assign(array(
+								 "SITE_URL"	=> $this->root_url,
+								 "images_url"  => $this->images_url
+								 ));
+								 */
+            $smarty->template_dir = cms_CORE_PATH.'plugins';//$this->smarty_dirs['templates'];
+            $smarty->compile_dir = $this->smarty_dirs['templates_c'];
+            $smarty->config_dir = $this->smarty_dirs['configs'];
+//            $smarty->plugins_dir = array(cms_CORE_PATH.'libs/smarty3/');//$this->smarty_dirs['plugins']
+            $smarty->cache_dir = $this->smarty_dirs['cache'];
+            $smarty->force_compile = PM_DESIGN;
+            $smarty->compile_check = PM_DESIGN;
+            $smarty->compile_id = $this->site_id;
+            $smarty->cache_lifetime = $this->cache_interval;
+            $smarty->caching = $this->caching;
+            $this->smarty = $smarty;
+            /*$this->smarty->register_resource("db", array("db_get_template",
+									   "db_get_timestamp",
+									   "db_get_secure",
+									   "db_get_trusted"));
+									   */
+        }
+
+        $tpl = $this->smarty->createTemplate($template);
+        $tpl->error_reporting = error_reporting() ^ E_NOTICE;
+
+        foreach ($data as $k=>$v) {
+            $tpl->assign($k, $v);
+        }
+
+        $tpl->assign('_plugin', $plugin);
+
+        return $tpl->fetch();
     }
 
     /* rg@0606 */

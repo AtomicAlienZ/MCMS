@@ -293,7 +293,14 @@ class cms_publisher extends cms_core {
 		$template['handlers'] = str_replace(' ', '', $template['handlers']);
 		$template['handlers'] = explode('|', $template['handlers']);
 		$this->page_info['template'] = $template;
-		$template['file'] = $this->smarty->template_dir . '/' . $template['filename'] . '.tpl';
+
+		$tpl = $this->smarty->template_dir = $this->smarty->template_dir[0];
+
+		if (is_array($tpl)) {
+			$tpl = reset($tpl);
+		}
+
+		$template['file'] = $tpl . '/' . $template['filename'] . '.tpl';
 
 //		die($template['file']);
 
@@ -608,7 +615,7 @@ class cms_publisher extends cms_core {
 			$smarty->compile_id = $this->site_id;
 			$smarty->cache_lifetime = $this->cache_interval;
 			$smarty->caching = $this->caching;
-			$this->smarty = &$smarty;
+			$this->smarty = $smarty;
 			/*$this->smarty->register_resource("db", array("db_get_template",
 									   "db_get_timestamp",
 									   "db_get_secure",
@@ -903,16 +910,17 @@ class cms_publisher extends cms_core {
 			}
 			$content_handler = new $handler_class_name();
 			$content_handler->plugin = $handler;
-			$content_handler->cms = &$this;
-			$content_handler->page_info = &$this->page_info;
-			$content_handler->dbc = &$this->dbc;
+			$content_handler->cms = $this;
+			$content_handler->page_info = $this->page_info;
+			$content_handler->dbc = $this->dbc;
 			if (file_exists($handler['path'] . 'plugin.config.php')) {
 				//include_once($handler['path'].'plugin.config.php');
 				include($handler['path'] . 'plugin.config.php');
 				$content_handler->plugin_config = $plugin_config;
 			}
 			$this->smarty->cache_id = $this->site_id . '_' . md5(implode('_', $toc));
-			$this->smarty->clear_all_assign();
+//			$this->smarty->clear_all_assign();
+			$this->smarty->clearAllAssign();
 			$this->smarty->assign($this->page_info);
 			$handler_result = $content_handler->exec($toc);
 			//print_r($handler_result);

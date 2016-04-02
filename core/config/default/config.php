@@ -7,7 +7,7 @@
     $this->lib_path                            = cms_LIB_PATH;
     $this->cache_path                        = cms_CACHE_PATH;
     $this->data_path                        = cms_DATA_PATH;
-    define('SMARTY_DIR',          $this->core_path.'lib/smarty/');
+    define('SMARTY_DIR',          $this->core_path.'lib/smarty3/');
 
     /*site*/
     $this->site_id              = SITE_ID;

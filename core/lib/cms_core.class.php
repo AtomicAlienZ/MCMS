@@ -1,6 +1,8 @@
 <?php
 
 class cms_core {
+	public static $staticdbc;
+
 	var $debug         = true;
 	var $compress_html = false;
 	/*******    general    *********/
@@ -176,6 +178,15 @@ class cms_core {
 		$this->dbc->SetFetchMode(ADODB_FETCH_ASSOC);
 		$this->dbc->fnExecute = 'adodb_CountExecs';
 		$this->dbc->fnCacheExecute = 'adodb_CountCachedExecs';
+
+		self::$staticdbc = $this->dbc;
+	}
+
+	/**
+	 * @return ADODB_mysql
+	 */
+	public static function getDBC() {
+		return self::$staticdbc;
 	}
 
 	function load_config($site_id = 'cms') {

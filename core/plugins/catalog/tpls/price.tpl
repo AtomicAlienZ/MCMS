@@ -1,4 +1,4 @@
-{* Шаблон показа записей каталога *}
+{* РЁР°Р±Р»РѕРЅ РїРѕРєР°Р·Р° Р·Р°РїРёСЃРµР№ РєР°С‚Р°Р»РѕРіР° *}
 
 {if $output.state == "done"}
 	{if $output.count_items > 0}
@@ -19,6 +19,6 @@
 	{/if}
 {elseif $output.state == "error"}
 	<div class="catalog">
-		<div>Записи не найдены</div>
+		<div>Р—Р°РїРёСЃРё РЅРµ РЅР°Р№РґРµРЅС‹</div>
 	</div>
 {/if}
