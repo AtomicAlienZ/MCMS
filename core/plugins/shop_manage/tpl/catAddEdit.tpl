@@ -1,1 +1,3 @@
-{$item|var_dump}
+{$form->display(false)}
+
+{*{$item|var_dump}*}

@@ -65,6 +65,7 @@ class cms_core {
 
 	var $defaultLang = '';
 
+	public static $_tables = array();
 
 	/* 404 variables */
 	var $vars_404      = array('structure' => 'true');

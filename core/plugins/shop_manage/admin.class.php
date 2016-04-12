@@ -48,7 +48,7 @@ class plugin_admin_interface extends cms_plugin_admin {
 			case 'addCat':
 			case 'editCat':
 				$this->template = 'catAddEdit';
-				$output = $this->editAddCategory((int)$arguments['id']);
+				$output = $this->editAddCategory(isset($arguments['id']) ? (int)$arguments['id'] : null, $arguments['action']);
 				break;
 			default:
 				$output['tree'] = Shop_Category::getTree();
@@ -58,47 +58,105 @@ class plugin_admin_interface extends cms_plugin_admin {
 		return $output;
 	}
 
-	protected function editAddCategory ($id) {
-		var_dump($this->langs);die;
-		return array('item'=>Shop_Category::getById($id));
+	protected function editAddCategory ($id, $action) {
+		$item = Shop_Category::getById($id);
+		$fob = $this->init_fob('',$_SERVER['REQUEST_URI']);
 
+		// Needed fields
+		$fob->add_hidden('$' . $this->cms->request_vars['plugin'], $this->plugin['name']);
+		$fob->add_hidden('$' . $this->cms->request_vars['arguments'] . '[action]', $action);
+		if ($id) {
+			$fob->add_hidden('$' . $this->cms->request_vars['arguments'] . '[id]', $id);
+		}
+
+		$fob->add_html('sep', $this->cms->int_add_h1($item ? "Редактирование категории" : "Новая категория"));
+
+		// Alias
+		$fob->add_text(true, 'alias', ($item ? $item->getAlias() : ''), 'Alias');
+
+		$possibleParentsArray = array(
+			0 => '---'
+		);
+
+		$possibleParents = ($item ? $item->getPossibleParents() : Shop_Category::getAll());
+
+		foreach ($possibleParents as $parent) {
+			$possibleParentsArray[$parent->getId()] = $parent->getName('en') . ' (id='.$parent->getId().', '.($parent->isActive() ? 'enabled' : 'disabled').')';
+		}
+
+		$fob->add_select(false, 'id_parent', $possibleParentsArray, 'Parent category', '', ($item ? $item->getIdParent() : 0));
+
+		// Names
+		foreach ($this->langs as $lang) {
+			$fob->add_html('info', $this->cms->int_add_h2($lang));
+
+			// Name
+			$fob->add_text(true, 'name_' . $lang, ($item ? $item->getName($lang) : ''), 'Name', $lang);
+
+			// Description
+			$fob->add_wysiwyg(false, 'description_' . $lang, ($item ? $item->getDescription($lang) : ''), 'Description', $lang);
+
+			// Page Title
+			$fob->add_text(true, 'title_' . $lang, ($item ? $item->getPageTitle($lang) : ''), 'Page Title', $lang);
+
+			// Meta keywords
+			$fob->add_textarea(false, 'meta_desc_' . $lang, ($item ? $item->getMetaKeywords($lang) : ''), 'Meta description', $lang);
+
+			// Meta description
+			$fob->add_textarea(false, 'meta_keywords_' . $lang, ($item ? $item->getMetaDescription($lang) : ''), 'Meta keywords', $lang);
+		}
+
+		$fob->add_html('info', $this->cms->int_add_h2(''));
+
+		$fob->add_checkbox(false, 'is_active', 'y', 'Включено', '', '', ($item ? $item->isActive() : ''));
+
+		// Buttons
+		$fob->add_button('submit', 'save', ($item ? 'Сохранить' : 'Добавить'), '');
+		$fob->add_button('submit', 'save_stay', ($item ? 'Сохранить и остаться' : 'Добавить и перейти'), '');
+
+		if ($fob->is_submited() && $fob->is_valid_submit()) {
+			$values = $fob->get_submited_values();
+
+			try {
+				// Saving
+				if ($item) {
+					$item->save($values);
+				}
+				// Creating new
+				else {
+					$item = Shop_Category::create($values);
+				}
+
+				// Redirect to tree
+				if ($values['save_stay'] != '' && $item) {
+					$target_url = $this->cms->format_url($this->plugin['name'], '', array("id" => $item->getId(), "action" => 'editCat'));
+				}
+				// Redirect to item
+				else {
+					$target_url = $this->cms->format_url($this->plugin['name'], '', array("action" => 'catTree'));
+				}
+				header('Location: ' . $target_url);
+				die;
+			}
+			catch (MultiException $e) {
+				foreach ($e->getMessages() as $message) {
+					$this->cms->int_set_message('top', $message['message'].(isset($message['field']) ? '('.$message['field'].')' : ''), $message['caption'], 'error');
+				}
+			}
+		}
+
+		return array(
+			'item'=>$item,
+			'form'=>$fob
+		);
 	}
 
 
 	// Функция инициализации поддерживаемых на сайте языков
 	protected function initLanguages()
 	{
-
-		$languages = array();
-		$lang = "";
-
-		// Читаем список поддерживаемых на сайте языков
-		$sql = "SELECT language_id, short_title, alias FROM " . $this->cms->tables["languages"] . " ORDER BY ord ASC";
-		$result = $this->dbc->Execute($sql);
-		if (!$result) {
-			$this->cms->int_set_message('top', $this->dbc->ErrorMsg() . '<br>Query: ' . $sql, 'SQL Error', 'error');
-			return false;
-		}
-
-		if ($result->RecordCount() > 0) {
-
-			$counter = 1;
-			while ($record = $result->FetchRow()) {
-
-				// Заполняем массив поддерживаемых языков
-				$languages[$record["language_id"]] = $record["alias"];
-
-				// Определяем текущий язык сайта как первый в списке
-				if ($counter == 1) {
-					$lang = $record["alias"];
-				}
-
-				$counter++;
-			}
-		}
-
 		// Сохраняем список языков и текущий язык в переменных класса
-		$this->langs = $languages;
-		$this->lang = $lang;
+		$this->langs = cms_admin::getLanguages();
+		$this->lang = cms_admin::getLanguage();
 	}
 }

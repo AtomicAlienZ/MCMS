@@ -78,4 +78,18 @@ class cms_plugin_admin {
 
 }
 
+class MultiException extends Exception {
+    protected $multiMessage;
+
+    public function __construct($multiMessage) {
+        parent::__construct('MultiException occured!');
+
+        $this->multiMessage = $multiMessage;
+    }
+
+    public function getMessages () {
+        return $this->multiMessage;
+    }
+}
+
 ?>

@@ -245,4 +245,5 @@
 		$this->tableColumn[$this->tables[$tableName]] = $columns;
 	}	
 
+	self::$_tables = $this->tables;
 ?>
