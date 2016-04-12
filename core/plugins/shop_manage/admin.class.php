@@ -23,6 +23,7 @@ class plugin_admin_interface extends cms_plugin_admin {
 
 			if ($command == $section) {
 				$execute = $section;
+				$this->template = $execute;
 			}
 		}
 
@@ -44,10 +45,14 @@ class plugin_admin_interface extends cms_plugin_admin {
 	protected function catTree ($arguments) {
 		$output = array();
 
+		if (!isset($arguments['action'])) {
+			$arguments['action'] = 'catTree';
+		}
+
 		switch ($arguments['action']) {
 			case 'addCat':
 			case 'editCat':
-				$this->template = 'catAddEdit';
+				$this->template = 'form';
 				$output = $this->editAddCategory(isset($arguments['id']) ? (int)$arguments['id'] : null, $arguments['action']);
 				break;
 			default:
@@ -151,6 +156,40 @@ class plugin_admin_interface extends cms_plugin_admin {
 		);
 	}
 
+	protected function fieldsets ($arguments) {
+		$output = array();
+
+		switch ($arguments['action']) {
+			case 'addFieldset':
+			case 'editFieldset':
+				$this->template = 'editAddFieldset';
+				$output = $this->editAddFieldset(isset($arguments['id']) ? (int)$arguments['id'] : null, $arguments['action']);
+				break;
+			default:
+				$output['list'] = Shop_Fieldset::getList();
+				break;
+		}
+
+		return $output;
+	}
+
+	protected function editAddFieldset ($id, $action) {
+		$item = Shop_Fieldset::getById($id);
+//		$fob = $this->init_fob('',$_SERVER['REQUEST_URI']);
+//
+//		// Needed fields
+//		$fob->add_hidden('$' . $this->cms->request_vars['plugin'], $this->plugin['name']);
+//		$fob->add_hidden('$' . $this->cms->request_vars['arguments'] . '[action]', $action);
+//		if ($id) {
+//			$fob->add_hidden('$' . $this->cms->request_vars['arguments'] . '[id]', $id);
+//		}
+//
+//		$fob->add_html('sep', $this->cms->int_add_h1($item ? "Редактирование набора полей" : "Новый набор полей"));
+
+		return array(
+			'item'=>$item
+		);
+	}
 
 	// Функция инициализации поддерживаемых на сайте языков
 	protected function initLanguages()

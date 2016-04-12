@@ -190,6 +190,61 @@ class cms_core {
 		return self::$staticdbc;
 	}
 
+	protected static $_languages;
+	protected static $_language;
+
+	protected static function initLanguages()
+	{
+		$languages = array();
+		$lang = "";
+		$db = self::getDBC();
+
+		// Читаем список поддерживаемых на сайте языков
+		$sql = "SELECT language_id, short_title, alias FROM " . self::$_tables["languages"] . " ORDER BY ord ASC";
+		$result = $db->Execute($sql);
+//        if (!$result) {
+//            $this->cms->int_set_message('top', $this->dbc->ErrorMsg() . '<br>Query: ' . $sql, 'SQL Error', 'error');
+//            return false;
+//        }
+
+		if ($result->RecordCount() > 0) {
+
+			$counter = 1;
+			while ($record = $result->FetchRow()) {
+
+				// Заполняем массив поддерживаемых языков
+				$languages[$record["language_id"]] = $record["alias"];
+
+				// Определяем текущий язык сайта как первый в списке
+				if ($counter == 1) {
+					$lang = $record["alias"];
+				}
+
+				$counter++;
+			}
+		}
+
+		// Сохраняем список языков и текущий язык в переменных класса
+		self::$_languages = $languages;
+		self::$_language = $lang;
+	}
+
+	public static function getLanguages() {
+		if (!isset(self::$_languages)) {
+			self::initLanguages();
+		}
+
+		return self::$_languages;
+	}
+
+	public static function getLanguage() {
+		if (!isset(self::$_language)) {
+			self::initLanguages();
+		}
+
+		return self::$_language;
+	}
+
 	function load_config($site_id = 'cms') {
 		$config_file = cms_CORE_PATH . 'config/' . $site_id . '/config.php';
 		if (!file_exists($config_file) || !is_file($config_file)) {

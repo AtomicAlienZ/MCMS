@@ -21,3 +21,6 @@ ALTER TABLE `pm_shop_catregories` ADD `title_ua` VARCHAR(255) NOT NULL AFTER `na
 ALTER TABLE `pm_shop_catregories` ADD `meta_desc_ua` TEXT NOT NULL AFTER `meta_keywords_ru`, ADD `meta_desc_en` TEXT NOT NULL AFTER `meta_desc_ua`, ADD `meta_desc_ru` TEXT NOT NULL AFTER `meta_desc_en`;
 
 ALTER TABLE `pm_shop_catregories` ADD `description_ua` TEXT NOT NULL AFTER `name_ru`, ADD `description_en` TEXT NOT NULL AFTER `description_ua`, ADD `description_ru` TEXT NOT NULL AFTER `description_en`;
+
+-- 12.04.2016
+CREATE TABLE `mcms`.`pm_shop_fieldset` ( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) NOT NULL , `data` TEXT NOT NULL COMMENT 'JSONed additional fields config' , PRIMARY KEY (`id`)) ENGINE = MyISAM;
