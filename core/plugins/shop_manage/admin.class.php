@@ -85,11 +85,23 @@ class plugin_admin_interface extends cms_plugin_admin {
 
 		$possibleParents = ($item ? $item->getPossibleParents() : Shop_Category::getAll());
 
-		foreach ($possibleParents as $parent) {
-			$possibleParentsArray[$parent->getId()] = $parent->getName('en') . ' (id='.$parent->getId().', '.($parent->isActive() ? 'enabled' : 'disabled').')';
+		foreach ($possibleParents as $fieldset) {
+			$possibleParentsArray[$fieldset->getId()] = $fieldset->getName('en') . ' (id='.$fieldset->getId().', '.($fieldset->isActive() ? 'enabled' : 'disabled').')';
 		}
 
 		$fob->add_select(false, 'id_parent', $possibleParentsArray, 'Parent category', '', ($item ? $item->getIdParent() : 0));
+
+		$possibleFieldsetsArray = array(
+			0 => '---'
+		);
+
+		$possibleFieldsets = Shop_Fieldset::getList();
+
+		foreach ($possibleFieldsets as $fieldset) {
+			$possibleFieldsetsArray[$fieldset->getId()] = $fieldset->getName() . ' (id='.$fieldset->getId().')';
+		}
+
+		$fob->add_select(false, 'id_fieldset', $possibleFieldsetsArray, 'Fieldset', '', ($item ? $item->getIdFieldset() : 0));
 
 		// Names
 		foreach ($this->langs as $lang) {
@@ -159,6 +171,10 @@ class plugin_admin_interface extends cms_plugin_admin {
 	protected function fieldsets ($arguments) {
 		$output = array();
 
+		if (!is_array($arguments) || !isset($arguments['action'])) {
+			$arguments = array('action' => '');
+		}
+
 		switch ($arguments['action']) {
 			case 'addFieldset':
 			case 'editFieldset':
@@ -175,16 +191,26 @@ class plugin_admin_interface extends cms_plugin_admin {
 
 	protected function editAddFieldset ($id, $action) {
 		$item = Shop_Fieldset::getById($id);
-//		$fob = $this->init_fob('',$_SERVER['REQUEST_URI']);
-//
-//		// Needed fields
-//		$fob->add_hidden('$' . $this->cms->request_vars['plugin'], $this->plugin['name']);
-//		$fob->add_hidden('$' . $this->cms->request_vars['arguments'] . '[action]', $action);
-//		if ($id) {
-//			$fob->add_hidden('$' . $this->cms->request_vars['arguments'] . '[id]', $id);
-//		}
-//
-//		$fob->add_html('sep', $this->cms->int_add_h1($item ? "Редактирование набора полей" : "Новый набор полей"));
+
+		if (isset($_POST['FORM'])) {
+			try {
+				if ($item) {
+					$item->save($_POST['FORM']);
+				}
+				else {
+					$item = Shop_Fieldset::create($_POST['FORM']);
+				}
+
+				$target_url = $this->cms->format_url($this->plugin['name'], 'fieldsets');
+				header('Location: ' . $target_url);
+				die;
+			}
+			catch (MultiException $e) {
+				foreach ($e->getMessages() as $message) {
+					$this->cms->int_set_message('top', $message['message'].(isset($message['field']) ? '('.$message['field'].')' : ''), $message['caption'], 'error');
+				}
+			}
+		}
 
 		return array(
 			'item'=>$item

@@ -124,6 +124,8 @@ class Shop_Category {
 			$errors['id_parent'] = 'wrongparent';
 		}
 
+		$return['id_fieldset'] = (int)$data['id_fieldset'];
+
 		$return['is_active'] = $data['is_active'] ? 'y' : 'n';
 
 		if ($updateItem) {
@@ -281,6 +283,7 @@ class Shop_Category {
 
 	public function getId()                   { return (int)$this->id; }
 	public function getIdParent()             { return (int)$this->get('id_parent'); }
+	public function getIdFieldset()           { return (int)$this->get('id_fieldset'); }
 	public function isActive()                { return $this->get('is_active') == 'y';}
 	public function getAlias()                { return $this->get('alias');}
 	public function getName($lang)            { return $this->get('name', $lang);}

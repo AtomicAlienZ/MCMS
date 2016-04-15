@@ -66,6 +66,104 @@ class Shop_Fieldset {
 		return null;
 	}
 
+	public static function create ($data) {
+		$errors = array();
+		$fields = array();
+
+		$db = cms_admin::getDBC();
+
+		$fields['name'] = $db->realEscape($data['name']);
+
+		// Preparing and fixing fields
+		foreach ($data['fields'] as $k => $v) {
+			$data['fields'][$k]['required'] = $data['fields'][$k]['required'] !== 'false';
+			$data['fields'][$k]['enabled'] = $data['fields'][$k]['enabled'] !== 'false';
+		}
+
+		$fields['data'] = $db->realEscape(json_encode($data['fields']));
+
+		$result = $db->Execute('SELECT `id` FROM `'.self::DB_TABLE.'` WHERE `name` = "'.$fields['name'].'"');
+		if ($result->RowCount()) {
+			$errors['name'] = 'exists';
+		}
+
+		if (count($errors) > 0) {
+			foreach ($errors as $k=>$v) {
+				$errors[$k] = array(
+					'caption' => 'Field error',
+					'field' => $k,
+					'message' => $v
+				);
+			}
+
+			throw new MultiException($errors);
+		}
+
+		$sql = 'INSERT INTO `'.self::DB_TABLE.'` (`'.implode('`,`',array_keys($fields)).'`) VALUES ("'.implode('","',array_values($fields)).'")';
+		$result = $db->Execute($sql);
+		if (!$result) {
+			throw new MultiException(array(
+				array(
+					'caption' => 'DB error!',
+					'message' => $db->ErrorMsg() . '<br>Query: ' . $sql
+				)
+			));
+		}
+
+		$id = $db->_insertid();
+
+		return self::getById($id);
+	}
+
+	public function save ($data) {
+		$errors = array();
+		$fields = array();
+
+		$db = cms_admin::getDBC();
+
+		$fields['name'] = $db->realEscape($data['name']);
+
+		// Preparing and fixing fields
+		foreach ($data['fields'] as $k => $v) {
+			$data['fields'][$k]['required'] = $data['fields'][$k]['required'] !== 'false';
+			$data['fields'][$k]['enabled'] = $data['fields'][$k]['enabled'] !== 'false';
+		}
+
+		$fields['data'] = $db->realEscape(json_encode($data['fields']));
+
+		$result = $db->Execute('SELECT `id` FROM `'.self::DB_TABLE.'` WHERE `name` = "'.$fields['name'].'" AND `id` != '.$this->getId());
+		if ($result->RowCount()) {
+			$errors['name'] = 'exists';
+		}
+
+		if (count($errors) > 0) {
+			foreach ($errors as $k=>$v) {
+				$errors[$k] = array(
+					'caption' => 'Field error',
+					'field' => $k,
+					'message' => $v
+				);
+			}
+
+			throw new MultiException($errors);
+		}
+
+		$sql = array();
+		foreach ($fields as $k=>$v) {
+			$sql[] = '`'.$k.'` = "'.$v.'"';
+		}
+		$sql = 'UPDATE `'.self::DB_TABLE.'` SET '.implode(', ', $sql).' WHERE `id` = '.$this->getId();// (`'.implode('`,`',array_keys($fields)).'`) VALUES ("'.implode('","',array_values($fields)).'")';
+		$result = $db->Execute($sql);
+		if (!$result) {
+			throw new MultiException(array(
+				array(
+					'caption' => 'DB error!',
+					'message' => $db->ErrorMsg() . '<br>Query: ' . $sql
+				)
+			));
+		}
+	}
+
 	public function getId() {
 		return $this->id;
 	}
