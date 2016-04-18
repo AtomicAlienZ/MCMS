@@ -44,7 +44,7 @@ class Shop_Fieldset {
 	 */
 	public static function getList () {
 		$return = array();
-		$db = cms_admin::getDBC();
+		$db = cms_core::getDBC();
 
 		$result = $db->Execute('SELECT * FROM `'.self::DB_TABLE.'`');
 		while ($data = $result->fetchRow()) {
@@ -59,7 +59,7 @@ class Shop_Fieldset {
 	 * @return self
 	 */
 	public static function getById ($id) {
-		$result = cms_admin::getDBC()->Execute('SELECT * FROM `'.self::DB_TABLE.'` WHERE `id` = '.(int)$id);
+		$result = cms_core::getDBC()->Execute('SELECT * FROM `'.self::DB_TABLE.'` WHERE `id` = '.(int)$id);
 		while ($data = $result->fetchRow()) {
 			return new self($data);
 		}
@@ -70,7 +70,7 @@ class Shop_Fieldset {
 		$errors = array();
 		$fields = array();
 
-		$db = cms_admin::getDBC();
+		$db = cms_core::getDBC();
 
 		$fields['name'] = $db->realEscape($data['name']);
 
@@ -119,7 +119,7 @@ class Shop_Fieldset {
 		$errors = array();
 		$fields = array();
 
-		$db = cms_admin::getDBC();
+		$db = cms_core::getDBC();
 
 		$fields['name'] = $db->realEscape($data['name']);
 

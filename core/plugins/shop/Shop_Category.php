@@ -32,7 +32,7 @@ class Shop_Category {
 
 	protected static function _init ($force = false) {
 		if (!isset(self::$pool) || $force) {
-			$db = cms_admin::getDBC();
+			$db = cms_core::getDBC();
 
 			$result = $db->Execute('SELECT * FROM `'.self::DB_TABLE.'`');
 
@@ -88,8 +88,8 @@ class Shop_Category {
 	protected static function _getInsUpdArray ($data, self $updateItem = null) {
 		$return = array();
 		$errors = array();
-		$db = cms_admin::getDBC();
-		$langs = cms_admin::getLanguages();
+		$db = cms_core::getDBC();
+		$langs = cms_core::getLanguages();
 
 		// Checking alias for validity
 		if (!preg_match('/^[a-z0-9_-]{2,}$/uiU', $data['alias'])) {
@@ -184,7 +184,7 @@ class Shop_Category {
 	public static function create ($data) {
 		$insarr = self::_getInsUpdArray($data);
 
-		$db = cms_admin::getDBC();
+		$db = cms_core::getDBC();
 
 		$sql = 'INSERT INTO `'.self::DB_TABLE.'` (`'.implode('`,`',array_keys($insarr)).'`) VALUES ("'.implode('","',array_values($insarr)).'")';
 		$result = $db->Execute($sql);
@@ -257,7 +257,7 @@ class Shop_Category {
 			$updarr[$k] = '`'.$k.'` = "'.$v.'"';
 		}
 
-		$db = cms_admin::getDBC();
+		$db = cms_core::getDBC();
 
 		$sql = 'UPDATE `'.self::DB_TABLE.'` SET '.implode(', ', $updarr).' WHERE `id` = '.$this->getId();
 		$result = $db->Execute($sql);
