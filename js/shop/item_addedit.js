@@ -36,20 +36,37 @@ $(function () {
 		}, this);
 
 		this.media = ko.observableArray([]);
+		this.mediaId = 0;
+
+		if (data.media instanceof Array) {
+			for (var i in data.media) {
+				if (data.media.hasOwnProperty(i)) {
+					this.media.push({
+						data: data.media[i],
+						mediaId: data.media[i].id,
+						order: ko.observable(data.media[i].order),
+						active: ko.observable(data.media[i].active)
+					});
+
+					this.mediaId = Math.max(this.mediaId, data.media[i].id);
+				}
+			}
+		}
 
 		this.errors = ko.observable();
 
 		this.fields = [];
 
 		for (var i = 0; i < fieldconfig.length; i++) {
-			var tmp = fieldconfig[i];
+			var tmp = fieldconfig[i],
+				value = data.fields && data.fields[tmp.id] ? data.fields[tmp.id] : null;
 
 			// Todo value setting
 			if (tmp.type == 'miltiselect') {
-				tmp.value = ko.observableArray([]);
+				tmp.value = ko.observableArray(value || []);
 			}
 			else {
-				tmp.value = ko.observable('');
+				tmp.value = ko.observable(value || '');
 			}
 
 			if (
@@ -168,6 +185,7 @@ $(function () {
 						'[price]': this.price(),
 						'[is_active]': this.is_active() ? 'y' : 'n'
 					},
+					mediaItems = this.media(),
 					$form = $('#shop_item_addedit');
 
 				// Localized data
@@ -189,6 +207,26 @@ $(function () {
 					}
 				}
 
+				// Media
+				for (var i = 0; i < mediaItems.length; i++) {
+					var media = mediaItems[i];
+
+					if (media._new) {
+						fields['[newmedia]['+media.mediaId+'][id]']     = media.mediaId;
+						fields['[newmedia]['+media.mediaId+'][type]']   = media.type();
+						fields['[newmedia]['+media.mediaId+'][order]']  = media.order();
+						fields['[newmedia]['+media.mediaId+'][url]']    = media.url();
+						fields['[newmedia]['+media.mediaId+'][active]'] = media.active() ? 'y' : 'n';
+					}
+					else {
+						console.log(media);
+						fields['[media]['+media.mediaId+'][id]'] = media.mediaId;
+						fields['[media]['+media.mediaId+'][order]'] = media.order();
+						fields['[media]['+media.mediaId+'][active]'] = media.active() ? 'y' : 'n';
+					}
+				}
+//console.log(fields);
+//return;
 				for (var i in fields) {
 					if (fields.hasOwnProperty(i)) {
 						var $tmp = $('<input type="hidden" name="FORM' + i + '">');
@@ -201,7 +239,30 @@ $(function () {
 
 				$form.submit();
 			}
-		}
+		};
+
+		this.addMediaItem = function () {
+			var order = 0,
+				media = this.media();
+
+			for (var i = 0; i < media.length; i++) {
+				order = Math.max(order, media[i].order());
+			}
+
+			this.mediaId++;
+
+			var tmp = {
+				_new: true,
+				mediaId: this.mediaId,
+				type: ko.observable('image'), // image/video
+				order: ko.observable(++order),
+				active: ko.observable(true),
+				url: ko.observable('')
+			};
+
+
+			this.media.push(tmp);
+		};
 	}
 
 	ko.applyBindings(new Item (_GLOBAL_SHOP_ITEM_DATA, _GLOBAL_SHOP_FIELDCONFIG, _GLOBAL_SHOP_LANG), document.getElementById('shop_item_addedit'));

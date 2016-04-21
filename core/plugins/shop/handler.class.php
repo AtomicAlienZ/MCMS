@@ -61,7 +61,6 @@ class shop_handler {
 
 		$action = isset($_GET['action']) ? $_GET['action'] : '';
 		$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-		$item = null;
 
 		if ($action == 'add') {
 			$return['category'] = Shop_Category::getById($id);
@@ -73,6 +72,15 @@ class shop_handler {
 			$this->_template = 'addedit';
 		}
 		elseif ($action == 'edit') {
+			$return['item'] = Shop_Item::getById($id);
+
+			if (!$return['item']) {
+				throw new Exception(404);
+			}
+
+			$return['category'] = $return['item']->getCategory();
+
+			$this->_template = 'addedit';
 		}
 		else {
 			$return['categories'] = Shop_Category::getTree();
@@ -81,15 +89,18 @@ class shop_handler {
 
 		if (($action == 'add' || $action == 'edit') && isset($_POST['FORM']) && is_array($_POST['FORM'])) {
 
-			if ($item) {
+			if ($action == 'edit' && isset($return['item'])) {
 				// TODO
+				$return['item']->save($_POST['FORM'], isset($_FILES['FORM']) ? $_FILES['FORM'] : array());
 			}
-			else {
-				Shop_Item::create($_POST['FORM'], $this->page_info['user_data']['uid'], $return['category']->getId());
+			else if ($action == 'add') {
+				Shop_Item::create($_POST['FORM'], isset($_FILES['FORM']) ? $_FILES['FORM'] : array(), $this->page_info['user_data']['uid'], $return['category']->getId());
 			}
 
-			// TODO FIXME
-			header('Location: /');die;
+			$path = $this->page_info['path'];
+			$path = end($path);
+
+			header('Location: '.$path['url']);die;
 		}
 
 		return $return;

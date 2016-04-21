@@ -38,6 +38,7 @@
 			{$field.name} - {if is_array($field.value)}{', '|implode: $field.value}{else}{$field.value}{/if}
 		</div>
 	{/foreach}
+	<a href="?action=edit&id={$item->getId()}">EDIT</a>
 </div>
 {/foreach}
 

@@ -16,11 +16,6 @@ class Shop_Category {
 	protected $data;
 
 	/**
-	 * @var array
-	 */
-	protected $media;
-
-	/**
 	 * @var self
 	 */
 	protected $parent;
@@ -213,14 +208,8 @@ class Shop_Category {
 		$this->data = $DBData;
 
 		$this->id = (int)$this->data['id'];
-		$this->media = json_decode($this->data['media'], true);
 
 		unset($this->data['id']);
-		unset($this->data['media']);
-
-		if ($this->media === null) {
-			$this->media = array();
-		}
 	}
 
 	/**

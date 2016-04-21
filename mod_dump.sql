@@ -32,3 +32,6 @@ CREATE TABLE `pm_shop_items` ( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT , `id_c
 ALTER TABLE `pm_shop_items` ADD `is_active` ENUM('n','y') NOT NULL DEFAULT 'n' AFTER `id_user`, ADD `is_banned` ENUM('n','y') NOT NULL DEFAULT 'n' AFTER `is_active`;
 
 ALTER TABLE `pm_shop_items` ADD `fields` TEXT NOT NULL AFTER `price`;
+
+-- 21.04.2016
+ALTER TABLE `pm_shop_catregories` DROP `media`;
