@@ -18,7 +18,7 @@
 	</div>
 
 	<!-- ko foreach: fields -->
-	<div style="border: 1px solid red;">
+	<div style="border: 1px solid red;padding: 10px;margin-bottom: 20px;;">
 		<input type="hidden">
 		<!-- ko foreach: Object.keys(names) -->
 			<div>
@@ -35,7 +35,7 @@
 		<div>
 			<b>OPTIONS</b>
 			<div data-bind="foreach: options">
-				<div style="border: 1px dashed blue;">
+				<div style="border: 1px dashed blue;padding: 10px;margin: 10px;display: inline-block;vertical-align: top;">
 					<div>
 						ID* (unique to field):
 						<input type="text" data-bind="textInput: id">
@@ -49,7 +49,7 @@
 					<button data-bind="click: function () { $parent.options.remove($data); }">remove option</button>
 				</div>
 			</div>
-			<button data-bind="click: addOption">add option</button>
+			<button data-bind="click: function () { addOption() }">add option</button>
 		</div>
 		<!-- /ko -->
 
@@ -100,8 +100,6 @@
 		}
 
 		Field.prototype.idCounter++;
-
-		console.log(data);
 
 		this.names = {};
 		for (var i = 0; i < _GLOBAL_LANGS.length; i++) {

@@ -1,6 +1,8 @@
 <?php
 
 class shop_handler {
+	protected $_template = 'root';
+
 	function parseTemplate ($template, $data) {
 
 		// Рассчитываем имя файла содержащего шаблон
@@ -25,20 +27,31 @@ class shop_handler {
 	    // Requiring needed
 	    require_once $this->plugin['path'].'Shop_Category.php';
 	    require_once $this->plugin['path'].'Shop_Fieldset.php';
-//	    require_once $this->plugin['path'].'Shop_.php';
+	    require_once $this->plugin['path'].'Shop_Item.php';
+
+	    // TODO add check for access rights
 
 	    $return = array();
 
-	    switch ($params['tpl_alias']) {
-		    case 'shop':
-				// TODO add check for user access rights (whether he has a shop and his shop is not banned)
-				$return = $this->commandShop();
-			    break;
-		    case 'default':
-		    default:
-				/*  DO NOTHING */
-			    break;
+	    $this->cms->vars_falseget['shop'] = 'true';
+
+	    try {
+		    switch ($params['tpl_alias']) {
+			    case 'shop':
+					// TODO add check for user access rights (whether he has a shop and his shop is not banned)
+					$return = $this->commandShop();
+				    break;
+			    case 'default':
+			    default:
+					/*  DO NOTHING */
+				    break;
+		    }
 	    }
+	    catch (Exception $e) {
+		    $this->cms->vars_falseget['shop'] = 'false';
+	    }
+
+	    $return['_tpl'] = 'shop/'.$this->_template;
 
 	    return $this->parseTemplate($params['tpl_alias'], $return);
     }
@@ -46,7 +59,38 @@ class shop_handler {
 	protected function commandShop () {
 		$return = array();
 
-		$return['categories'] = Shop_Category::getTree();
+		$action = isset($_GET['action']) ? $_GET['action'] : '';
+		$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+		$item = null;
+
+		if ($action == 'add') {
+			$return['category'] = Shop_Category::getById($id);
+
+			if (!$return['category'] || !$return['category']->canAddItems()) {
+				throw new Exception(404);
+			}
+
+			$this->_template = 'addedit';
+		}
+		elseif ($action == 'edit') {
+		}
+		else {
+			$return['categories'] = Shop_Category::getTree();
+			$return['list'] = Shop_Item::getByUserId($this->page_info['user_data']['uid']);
+		}
+
+		if (($action == 'add' || $action == 'edit') && isset($_POST['FORM']) && is_array($_POST['FORM'])) {
+
+			if ($item) {
+				// TODO
+			}
+			else {
+				Shop_Item::create($_POST['FORM'], $this->page_info['user_data']['uid'], $return['category']->getId());
+			}
+
+			// TODO FIXME
+			header('Location: /');die;
+		}
 
 		return $return;
 	}

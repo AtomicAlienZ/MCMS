@@ -30,6 +30,11 @@ class Shop_Category {
 	 */
 	protected $children = array();
 
+	/**
+	 * @var Shop_Fieldset | null
+	 */
+	protected $fieldset = false;
+
 	protected static function _init ($force = false) {
 		if (!isset(self::$pool) || $force) {
 			$db = cms_core::getDBC();
@@ -284,11 +289,31 @@ class Shop_Category {
 	public function getId()                   { return (int)$this->id; }
 	public function getIdParent()             { return (int)$this->get('id_parent'); }
 	public function getIdFieldset()           { return (int)$this->get('id_fieldset'); }
-	public function isActive()                { return $this->get('is_active') == 'y';}
-	public function getAlias()                { return $this->get('alias');}
-	public function getName($lang)            { return $this->get('name', $lang);}
-	public function getPageTitle($lang)       { return $this->get('title', $lang);}
-	public function getDescription($lang)     { return $this->get('description', $lang);}
-	public function getMetaDescription($lang) { return $this->get('meta_desc', $lang);}
-	public function getMetaKeywords($lang)    { return $this->get('meta_keywords', $lang);}
+	public function isActive()                { return $this->get('is_active') == 'y'; }
+	public function getAlias()                { return $this->get('alias'); }
+	public function getName($lang)            { return $this->get('name', $lang); }
+	public function getPageTitle($lang)       { return $this->get('title', $lang); }
+	public function getDescription($lang)     { return $this->get('description', $lang); }
+	public function getMetaDescription($lang) { return $this->get('meta_desc', $lang); }
+	public function getMetaKeywords($lang)    { return $this->get('meta_keywords', $lang); }
+
+	public function getFieldset() {
+		if ($this->fieldset === false) {
+			$this->fieldset = Shop_Fieldset::getById($this->get('id_fieldset'));
+		}
+
+		return $this->fieldset;
+	}
+
+	public function canAddItems () {
+		$return = $this->isActive();
+
+		$parent = $this;
+
+		while ($parent = $parent->getParent()) {
+			$return = $return && $parent->isActive();
+		}
+
+		return $return;
+	}
 }

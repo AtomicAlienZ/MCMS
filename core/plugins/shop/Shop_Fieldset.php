@@ -23,6 +23,11 @@ class Shop_Fieldset {
 		self::FIELDTYPE_FLOAT
 	);
 
+	/**
+	 * @var self[]
+	 */
+	protected static $pool = array();
+
 	// TODO field modifiers like POSITIVE int and REGEXED string
 
 	protected $id;
@@ -37,6 +42,17 @@ class Shop_Fieldset {
 		if (!is_array($this->fields)) {
 			$this->fields = array();
 		}
+
+		// Processing fields
+		foreach ($this->fields as $fk => $fv) {
+			if (isset($fv['options']) && is_array($fv['options'])) {
+				$this->fields[$fk]['optionsById'] = array();
+
+				foreach ($fv['options'] as $option) {
+					$this->fields[$fk]['optionsById'][$option['id']] = $option;
+				}
+			}
+		}
 	}
 
 	/**
@@ -48,9 +64,11 @@ class Shop_Fieldset {
 
 		$result = $db->Execute('SELECT * FROM `'.self::DB_TABLE.'`');
 		while ($data = $result->fetchRow()) {
-			$return[] = new self($data);
+			$o = new self($data);
+			self::$pool[$o->getId()] = $o;
+			$return[$o->getId()] = $o;
 		}
-//var_dump($return);die;
+
 		return $return;
 	}
 
@@ -59,10 +77,17 @@ class Shop_Fieldset {
 	 * @return self
 	 */
 	public static function getById ($id) {
+		if (isset(self::$pool[$id])) {
+			return self::$pool[$id];
+		}
+
 		$result = cms_core::getDBC()->Execute('SELECT * FROM `'.self::DB_TABLE.'` WHERE `id` = '.(int)$id);
 		while ($data = $result->fetchRow()) {
-			return new self($data);
+			$o = new self($data);
+			self::$pool[$o->getId()] = $o;
+			return $o;
 		}
+
 		return null;
 	}
 
@@ -174,5 +199,53 @@ class Shop_Fieldset {
 
 	public function getFields() {
 		return $this->fields;
+	}
+
+	public function compileFields ($data, $lang) {
+		$return = array();
+
+		foreach ($this->getFields() as $field) {
+			$tmp = array(
+				'id' => $field['id'],
+				'name' => $field['names'][$lang],
+				'enabled' => $field['enabled']
+			);
+
+			switch ($field['type']) {
+				case self::FIELDTYPE_DATE:
+					// TODO
+					break;
+
+				case self::FIELDTYPE_SELECT:
+				case self::FIELDTYPE_MULTISELECT:
+					$tmp['value'] = array();
+					$values = $data[$field['id']];
+
+					if (!is_array($values)) {
+						$values = array($values);
+					}
+
+					foreach ($values as $value) {
+						if (isset($field['optionsById'][$value])) {
+							$tmp['value'][$value] = $field['optionsById'][$value]['names'][$lang];
+						}
+					}
+
+					break;
+
+				case self::FIELDTYPE_STRING:
+				case self::FIELDTYPE_TEXT:
+				case self::FIELDTYPE_HTML:
+				case self::FIELDTYPE_INT:
+				case self::FIELDTYPE_FLOAT:
+				default:
+					$tmp['value'] = $data[$field['id']];
+					break;
+			}
+
+			$return[] = $tmp;
+		}
+
+		return $return;
 	}
 }
