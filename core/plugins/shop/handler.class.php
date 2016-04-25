@@ -38,8 +38,12 @@ class shop_handler {
 	    try {
 		    switch ($params['tpl_alias']) {
 			    case 'shop':
-					// TODO add check for user access rights (whether he has a shop and his shop is not banned)
-					$return = $this->commandShop();
+				    // TODO add check for user access rights (whether he has a shop and his shop is not banned)
+				    $return = $this->commandShop();
+				    break;
+			    case 'categories':
+				    // TODO add check for user access rights (whether he has a shop and his shop is not banned)
+				    $return = $this->commandCategories();
 				    break;
 			    case 'default':
 			    default:
@@ -56,6 +60,36 @@ class shop_handler {
 	    return $this->parseTemplate($params['tpl_alias'], $return);
     }
 
+	protected function commandCategories () {
+		$return = array();
+
+		$this->_template = 'categories';
+
+		$catId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+
+		// Category view
+		if ($catId) {
+			$return['category'] = Shop_Category::getById($catId);
+			$this->_template = 'category';
+
+			if (!$return['category'] || !$return['category']->isVisible()) {
+				$this->cms->vars_falseget['shop'] = 'false';
+			}
+			else {
+				$return['list'] = Shop_Item::getByCagtegoryId($catId);
+				for ($i = 0, $c = count($return['list']); $i < $c; $i++) {
+					$return['list'][$i] = $return['list'][$i]->toDisplayArray(cms_core::getLanguage());
+				}
+			}
+		}
+		// Categories list
+		else {
+			$return['tree'] = Shop_Category::getTree();
+		}
+
+		return $return;
+	}
+
 	protected function commandShop () {
 		$return = array();
 
@@ -65,7 +99,7 @@ class shop_handler {
 		if ($action == 'add') {
 			$return['category'] = Shop_Category::getById($id);
 
-			if (!$return['category'] || !$return['category']->canAddItems()) {
+			if (!$return['category'] || !$return['category']->isVisible()) {
 				throw new Exception(404);
 			}
 

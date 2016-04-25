@@ -35,3 +35,7 @@ ALTER TABLE `pm_shop_items` ADD `fields` TEXT NOT NULL AFTER `price`;
 
 -- 21.04.2016
 ALTER TABLE `pm_shop_catregories` DROP `media`;
+
+-- 23.04.2016
+ALTER TABLE `pm_shop_items` CHANGE `datetime_created` `datetime_created` DATETIME NOT NULL;
+ALTER TABLE `pm_shop_items` CHANGE `datetime_modified` `datetime_modified` DATETIME NOT NULL;

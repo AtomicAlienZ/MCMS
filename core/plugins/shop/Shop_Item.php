@@ -70,6 +70,13 @@ class Shop_Item {
 			}
 		}
 
+		if ($updateItem) {
+			$return['datetime_modified'] = date('Y-m-d H:i:s');
+		}
+		else {
+			$return['datetime_created'] = date('Y-m-d H:i:s');
+		}
+
 		$return['fields'] = $db->realEscape(json_encode($return['fields']));
 
 		return $return;
@@ -303,6 +310,24 @@ class Shop_Item {
 		return $return;
 	}
 
+	/**
+	 * @param $id
+	 * @param bool|false $all
+	 * @return self[]
+	 */
+	public static function getByCagtegoryId ($id, $all = false) {
+		$return = array();
+		$db = cms_core::getDBC();
+
+		// TODO make DB indexes + add caching
+		$result = $db->Execute('SELECT * FROM `'.self::DB_TABLE.'` WHERE `id_category` = '.(int)$id.(!$all ? ' AND `is_active` = "y" AND `is_banned` = "n"' : ''));
+		while ($data = $result->fetchRow()) {
+			$return[] = new self($data);
+		}
+
+		return $return;
+	}
+
 	public static function getById ($id) {
 		$db = cms_core::getDBC();
 
@@ -375,11 +400,27 @@ class Shop_Item {
 		return $return;
 	}
 
+	public function toDisplayArray ($lang) {
+		$return = array();
+
+		$return['id'] = $this->getId();
+		$return['fields'] = $this->getFields($lang);
+		$return['media'] = $this->media;
+		$return['name'] = $this->getName($lang);
+		$return['desc'] = $this->getDesc($lang);
+		$return['price'] = $this->getPrice();
+		$return['times_ordered'] = (int)$this->get('times_ordered');
+		$return['date'] = $this->get('datetime_created');
+
+		return $return;
+	}
+
 	public function getId()         { return (int)$this->id; }
 	public function isActive()      { return $this->get('is_active') == 'y'; }
 	public function isBanned()      { return $this->get('is_banned') == 'y'; }
 	public function getName($lang)  { return $this->get('name', $lang); }
-	public function getPrice()      { return $this->get('price'); }
+	public function getDesc($lang)  { return $this->get('desc', $lang); }
+	public function getPrice()      { return (float)$this->get('price'); }
 	public function getIdCategory() { return (int)$this->get('id_category'); }
 	public function getMedia()      { return $this->media; }
 }

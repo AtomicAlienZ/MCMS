@@ -294,7 +294,7 @@ class Shop_Category {
 		return $this->fieldset;
 	}
 
-	public function canAddItems () {
+	public function isVisible () {
 		$return = $this->isActive();
 
 		$parent = $this;

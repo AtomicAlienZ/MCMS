@@ -10,7 +10,7 @@
 			FIELDSET: {$cat->getFieldset()->getName()}
 		{/if}
 		<br>
-		{if $cat->canAddItems()}
+		{if $cat->isVisible()}
 			<a href="?action=add&id={$cat->getId()}">ADD ITEM</a>
 		{/if}
 		{foreach from=$cat->getChildren() item=child name=pewpew}
