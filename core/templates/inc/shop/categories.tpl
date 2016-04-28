@@ -12,7 +12,7 @@
 		{/if}
 		<br>
 		{if $cat->isVisible()}
-			<a href="?id={$cat->getId()}">VIEW</a>
+			<a href="{$output._baseURL}?id={$cat->getId()}">VIEW</a>
 		{/if}
 		{foreach from=$cat->getChildren() item=child name=pewpew}
 			{TPLBuildCat cat=$child}

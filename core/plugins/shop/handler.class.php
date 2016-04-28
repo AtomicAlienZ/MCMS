@@ -45,6 +45,9 @@ class shop_handler {
 				    // TODO add check for user access rights (whether he has a shop and his shop is not banned)
 				    $return = $this->commandCategories();
 				    break;
+			    case 'basket':
+//					die('!');
+				    break;
 			    case 'default':
 			    default:
 					/*  DO NOTHING */
@@ -54,6 +57,11 @@ class shop_handler {
 	    catch (Exception $e) {
 		    $this->cms->vars_falseget['shop'] = 'false';
 	    }
+
+	    $path = $this->page_info['path'];
+	    $path = end($path);
+
+	    $return['_baseURL'] = $path['url'];
 
 	    $return['_tpl'] = 'shop/'.$this->_template;
 
@@ -65,18 +73,29 @@ class shop_handler {
 
 		$this->_template = 'categories';
 
-		$catId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+		$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+		$action = isset($_GET['action']) ? $_GET['action'] : false;
+
+		// Item view
 
 		// Category view
-		if ($catId) {
-			$return['category'] = Shop_Category::getById($catId);
+		if ($action == 'item') {
+			$return['item'] = Shop_Item::getById($id);
+			$this->_template = 'item';
+
+			if (!$return['item'] || !$return['item']->isVisible()) {
+				$this->cms->vars_falseget['shop'] = 'false';
+			}
+		}
+		elseif (!$action && $id) {
+			$return['category'] = Shop_Category::getById($id);
 			$this->_template = 'category';
 
 			if (!$return['category'] || !$return['category']->isVisible()) {
 				$this->cms->vars_falseget['shop'] = 'false';
 			}
 			else {
-				$return['list'] = Shop_Item::getByCagtegoryId($catId);
+				$return['list'] = Shop_Item::getByCagtegoryId($id);
 				for ($i = 0, $c = count($return['list']); $i < $c; $i++) {
 					$return['list'][$i] = $return['list'][$i]->toDisplayArray(cms_core::getLanguage());
 				}

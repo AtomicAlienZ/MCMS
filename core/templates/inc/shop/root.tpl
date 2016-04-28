@@ -11,7 +11,7 @@
 		{/if}
 		<br>
 		{if $cat->isVisible()}
-			<a href="?action=add&id={$cat->getId()}">ADD ITEM</a>
+			<a href="{$output._baseURL}?action=add&id={$cat->getId()}">ADD ITEM</a>
 		{/if}
 		{foreach from=$cat->getChildren() item=child name=pewpew}
 			{TPLBuildCat cat=$child}
@@ -38,7 +38,7 @@
 			{$field.name} - {if is_array($field.value)}{', '|implode: $field.value}{else}{$field.value}{/if}
 		</div>
 	{/foreach}
-	<a href="?action=edit&id={$item->getId()}">EDIT</a>
+	<a href="{$output._baseURL}?action=edit&id={$item->getId()}">EDIT</a>
 </div>
 {/foreach}
 

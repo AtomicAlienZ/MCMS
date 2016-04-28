@@ -418,6 +418,7 @@ class Shop_Item {
 	public function getId()         { return (int)$this->id; }
 	public function isActive()      { return $this->get('is_active') == 'y'; }
 	public function isBanned()      { return $this->get('is_banned') == 'y'; }
+	public function isVisible()     { return $this->isActive() && !$this->isBanned(); }
 	public function getName($lang)  { return $this->get('name', $lang); }
 	public function getDesc($lang)  { return $this->get('desc', $lang); }
 	public function getPrice()      { return (float)$this->get('price'); }

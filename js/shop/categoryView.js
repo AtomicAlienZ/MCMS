@@ -21,7 +21,6 @@ ko.bindingHandlers.PFNumberSlider = {
 			max: values.max,
 			values: viewModel.type == 'range' ? [ value.min, value.max ] : (viewModel.type == 'min' ? value.max : value.min),
 			slide: function( event, ui ) {
-				console.log(viewModel);
 				if (viewModel.type == 'range') {
 					viewModel.displayValues.min(ui.values[0]);
 					viewModel.displayValues.max(ui.values[1]);
@@ -291,8 +290,6 @@ $(function () {
 			// Intersecting filter results
 			result = intersectFilterResults(filterResults);
 
-			console.log(result);
-
 			for (var i = 0; i < this.items.length; i++) {
 				this.items[i].isFiltered = !(typeof result == 'undefined' || result.indexOf(this.items[i].id) >= 0);
 			}
@@ -302,8 +299,6 @@ $(function () {
 		sortTypes: ['price_asc', 'price_desc', 'times_ordered', 'newness'],
 		sort: ko.observable('price_asc'),
 		doSort: function (type) {
-			console.log('doSort:', type);
-
 			var sortfunc;
 
 			switch (type) {

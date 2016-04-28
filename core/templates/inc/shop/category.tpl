@@ -65,6 +65,25 @@
 		<div style="padding: 20px;margin: 20px;border: 1px solid;">
 			<!-- ko text: name --><!-- /ko --><br>
 			<!-- ko text: price --><!-- /ko -->
+			<div>
+				<!-- ko foreach: fields -->
+				<!-- ko if: enabled -->
+				<span style="display: inline-block;vertical-align: top;margin-right: 20px;">
+					<b data-bind="text: name"></b>
+					<!-- ko if: typeof value != 'object' -->
+						<!-- ko text: value --><!-- /ko -->
+					<!-- /ko -->
+
+					<!-- ko if: typeof value == 'object' -->
+						<!-- ko foreach: Object.keys(value) -->
+							<!-- ko text: $parent.value[$data] --><!-- /ko -->,
+						<!-- /ko -->
+					<!-- /ko -->
+				</span>
+				<!-- /ko -->
+				<!-- /ko -->
+			</div>
+			<a href="{$output._baseURL}?action=view&id=" data-bind="attr: { href: '{$output._baseURL}?action=item&id=' + id }">GO TO</a>
 		</div>
 	</div>
 </div>
