@@ -339,6 +339,34 @@ class Shop_Item {
 		return null;
 	}
 
+	public static function getByIdsArray ($ids) {
+		$return = array();
+
+		if (is_array($ids)) {
+			$tmpids = array();
+
+			foreach ($ids as $id) {
+				$id = (int)$id;
+
+				if ($id > 0) {
+					$tmpids[$id] = $id;
+				}
+			}
+
+			if (count($tmpids) > 0) {
+				$result = cms_core::getDBC()->Execute('SELECT * FROM `'.self::DB_TABLE.'` WHERE `id` IN ('.implode(',', $tmpids).')');
+
+				while ($tmp = $result->fetchRow()) {
+					$o = new self($tmp);
+
+					$return[$o->getId()] = $o;
+				}
+			}
+		}
+
+		return $return;
+	}
+
 	public function save ($data, $files) {
 		$updarr = self::getInsUpdArray($data, $this);
 		$db = cms_core::getDBC();

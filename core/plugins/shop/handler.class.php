@@ -29,6 +29,8 @@ class shop_handler {
 	    require_once $this->plugin['path'].'Shop_Fieldset.php';
 	    require_once $this->plugin['path'].'Shop_Item.php';
 
+//	    var_dump(Shop_Item::getByIdsArray(array(1,2,3,4,5)));die;
+
 	    // TODO add check for access rights
 
 	    $return = array();

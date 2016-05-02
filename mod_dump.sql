@@ -39,3 +39,11 @@ ALTER TABLE `pm_shop_catregories` DROP `media`;
 -- 23.04.2016
 ALTER TABLE `pm_shop_items` CHANGE `datetime_created` `datetime_created` DATETIME NOT NULL;
 ALTER TABLE `pm_shop_items` CHANGE `datetime_modified` `datetime_modified` DATETIME NOT NULL;
+
+-- 29.04.2016
+CREATE TABLE `mcms`.`pm_shop_orders` ( `id` INT NOT NULL AUTO_INCREMENT , `id_user` INT NOT NULL , `datetime_modified` DATETIME NOT NULL , `status` ENUM('new','pending','done') NOT NULL DEFAULT 'new' , `total_price` DECIMAL(10,2) NOT NULL , `shipping` TEXT NOT NULL , PRIMARY KEY (`id`), INDEX (`id_user`)) ENGINE = MyISAM;
+ALTER TABLE `pm_shop_orders` CHANGE `id` `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `pm_shop_orders` CHANGE `id_user` `id_user` INT(11) UNSIGNED NOT NULL;
+ALTER TABLE `pm_shop_orders` ADD `hash` CHAR(32) NOT NULL AFTER `id_user`, ADD INDEX (`hash`);
+
+CREATE TABLE `mcms`.`pm_shop_orders_items` ( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT , `id_order` INT UNSIGNED NOT NULL , `id_item` INT UNSIGNED NOT NULL , `price` DECIMAL(10,2) NOT NULL , `quantity` INT UNSIGNED NOT NULL , PRIMARY KEY (`id`), INDEX (`id_order`)) ENGINE = MyISAM;
