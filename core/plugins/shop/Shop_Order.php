@@ -1,7 +1,7 @@
 <?php
 class Shop_Order {
-	const DB_TABLE = '';
-	const DB_DEPS_TABLE = '';
+	const DB_TABLE = 'pm_shop_orders';
+	const DB_DEPS_TABLE = 'pm_shop_orders_items';
 
 	const COOKIE = 'MCMSSHOR'; // MCMS SHop ORder
 	const COOKIE_TTL = 5*86400;
@@ -26,6 +26,10 @@ class Shop_Order {
 	protected $items;
 
 	protected function __construct($data) {
+		if (!isset($data['total_price'])) {
+			$data['total_price'] = 0;
+		}
+
 		$this->id = (int)$data['id'];
 		$this->data = $data;
 		$this->price = (float)$data['total_price'];
@@ -83,7 +87,7 @@ class Shop_Order {
 
 		$db = cms_core::getDBC();
 
-		if ($uid > 0) {
+		if ($uid == 0) {
 			$hash = self::getHash();
 
 			if ($setCookie) {
@@ -93,7 +97,7 @@ class Shop_Order {
 
 		$modifDate = date('Y-m-d H:i:s');
 
-		$db->Execute('INSET INTO `'.self::DB_TABLE.'` SET
+		$db->Execute('INSERT INTO `'.self::DB_TABLE.'` SET
 						`id_user` = '.$uid.',
 						`hash` = "'.$db->realEscape($hash).'",
 						`datetime_modified` = "'.$modifDate.'",
@@ -105,7 +109,7 @@ class Shop_Order {
 			'id_user' => $uid,
 			'datetime_modified' => $modifDate,
 			'status' => self::STATUS_NEW,
-			'price' => 0
+			'total_price' => 0
 		));
 		$return->items = array(); // No items yet
 
@@ -120,16 +124,19 @@ class Shop_Order {
 		}
 
 		$order->addItem($item, $quantity);
+
+		return $order;
 	}
 
 	public function getId ()     { return $this->id; }
 	public function getStatus () { return $this->data['status']; }
+	public function getPrice ()  { return $this->price; }
 
 	public function getItems () {
 		if (!isset($this->items)) {
 			$db = cms_core::getDBC();
 
-			$result = $db->Execute('SELECT * FROM `'.self::DB_TABLE.'` WHERE `id_order` = '.$this->getId());
+			$result = $db->Execute('SELECT * FROM `'.self::DB_DEPS_TABLE.'` WHERE `id_order` = '.$this->getId());
 			while ($tmp = $result->fetchRow()) {
 				$this->items[(int)$tmp['id_item']] = array(
 					'item' => false,
@@ -185,10 +192,10 @@ class Shop_Order {
 							`id_order` = '.$this->getId().',
 							`id_item` = '.$item->getId().',
 							`price` = '.$item->getPrice().',
-							`quantity` = '.$quantity.',
+							`quantity` = '.$quantity.'
 							';
 
-				$dbr = $db->Excute($sql);
+				$dbr = $db->Execute($sql);
 
 				if (!$dbr) {
 					throw new Exception($db->ErrorMsg().' SQL: '.$sql);
@@ -206,16 +213,30 @@ class Shop_Order {
 		$this->recalculatePrice();
 	}
 
+	public function toArray() {
+		$return = array(
+			'id' => $this->getId(),
+			'price' => $this->getPrice(),
+			'items' => $this->getItems()
+		);
+
+		foreach ($return['items'] as $id => $linkdata) {
+			$return['items'][$id]['item'] = $return['items'][$id]['item']->toDisplayArray(cms_core::getLanguage());
+		}
+
+		return $return;
+	}
+
 	protected function recalculatePrice () {
 		$items = $this->getItems();
-		$r = 0;
+		$this->price = 0;
 
 		foreach ($items as $id=>$linkdata) {
-			$r += $linkdata['item']->getPrice();
+			$this->price += $linkdata['item']->getPrice() * (int)$linkdata['quantity'];
 		}
 
 		$db = cms_core::getDBC();
-		$sql = 'UPDATE `'.self::DB_TABLE.'` SET `price` = '.$r.' WHERE `id` = '.$this->getId();
+		$sql = 'UPDATE `'.self::DB_TABLE.'` SET `total_price` = '.$this->price.' WHERE `id` = '.$this->getId();
 		$dbr = $db->Execute($sql);
 
 		if (!$dbr) {

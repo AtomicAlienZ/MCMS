@@ -28,6 +28,7 @@ class shop_handler {
 	    require_once $this->plugin['path'].'Shop_Category.php';
 	    require_once $this->plugin['path'].'Shop_Fieldset.php';
 	    require_once $this->plugin['path'].'Shop_Item.php';
+	    require_once $this->plugin['path'].'Shop_Order.php';
 
 //	    var_dump(Shop_Item::getByIdsArray(array(1,2,3,4,5)));die;
 
@@ -48,7 +49,7 @@ class shop_handler {
 				    $return = $this->commandCategories();
 				    break;
 			    case 'basket':
-//					die('!');
+					$return = $this->commandBasket();
 				    break;
 			    case 'default':
 			    default:
@@ -107,6 +108,14 @@ class shop_handler {
 		else {
 			$return['tree'] = Shop_Category::getTree();
 		}
+
+		return $return;
+	}
+
+	protected function commandBasket () {
+		$return = array(
+			'order' => Shop_Order::getCurrent($this->page_info['user_data']['uid'])
+		);
 
 		return $return;
 	}
