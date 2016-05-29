@@ -1,1 +1,61 @@
-@import 'inc/normalize.styl';
+use('../../../node_modules/stylobuild', {
+	autoprefixer: { browsers: "last 2 version, Explorer >=8"},
+	csso: true,
+	pixrem: false
+});
+
+@import 'normalize.css';
+
+$c-main-text = rgba(80, 80, 80, 1);
+$c-main-separator = rgba(220, 220, 220, .25);
+$c-main-blue = rgba(100, 140, 240, 1);
+
+$c-main-green = #9aba73;
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	//font-family: 'Roboto', sans-serif;
+	font-family: 'Noto Sans', sans-serif;
+	line-height: 15px;
+	font-size: 13px;
+	background-image: url(../img/fish.jpg);
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	//background: rgba(250, 250, 250, 1);
+	color: $c-main-text;
+	min-width: 300px;
+	overflow-y: scroll;
+	//overflow-x: hidden;
+}
+
+a {
+	color: $c-main-text;
+	text-decoration: none;
+
+	border-bottom: 1px solid $c-main-green;
+	display: inline-block;
+}
+
+
+$sal-light-bg = rgba(242, 242, 242, 1);
+$sal-green = rgba(142, 178, 98, 1);
+
+
+@import 'import/ui.styl';
+@import 'import/layout.styl';
+@import 'import/header.styl';
+@import 'import/advert.styl';
+@import 'import/footer.styl';
+@import 'import/typo.styl';
+@import 'import/login.styl';
+
+@import 'import/shop.styl';

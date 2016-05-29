@@ -9,7 +9,7 @@ if (!defined('cms_CORE_PATH')) {
 
 //set_magic_quotes_runtime(0);
 error_reporting(PM_ERROR_REPORTING);
-error_reporting(E_ALL ^ E_DEPRECATED);
+error_reporting(E_ALL);
 
 include_once(cms_CORE_PATH . 'lib/cms_core.class.php');
 include_once(cms_CORE_PATH . 'lib/cms_publisher.class.php');
