@@ -14,8 +14,8 @@
 <!-- !Meta Information -->
 
 <!-- Fonts -->
-<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,500&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
 <!-- !Fonts -->
 
 <!-- Stylesheets -->
@@ -24,8 +24,12 @@
 
 <!-- JavaScript -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type='text/javascript' src='/js/numeral.min.js'></script>
+<script type='text/javascript' src='/js/js.cookie.js'></script>
+<script type='text/javascript' src='/js/jquery.currencyConverter.js'></script>
 <script type="text/javascript" src="/js/main.js"></script>
 <script type='text/javascript' src='/js/knockout-3.4.0.js'></script>
+<script type='text/javascript' src='/js/kobindings.js'></script>
 
 <!-- !JavaScript -->
 

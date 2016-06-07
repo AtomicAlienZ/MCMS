@@ -89,6 +89,9 @@ class shop_handler {
 			if (!$return['item'] || !$return['item']->isVisible()) {
 				$this->cms->vars_falseget['shop'] = 'false';
 			}
+			else {
+				$return['similar'] = Shop_Item::getRandomVisisble($return['item']->getIdCategory(), 10);
+			}
 		}
 		elseif (!$action && $id) {
 			$return['category'] = Shop_Category::getById($id);
@@ -113,6 +116,48 @@ class shop_handler {
 	}
 
 	protected function commandBasket () {
+		if (isset($_GET['_ajaxModule']) && $_GET['_ajaxModule'] == 'basket' && isset($_GET['_action'])) {
+			$return = null;
+			switch ($_GET['_action']) {
+				case 'add':
+					if (isset($_POST['items']) && is_array($_POST['items'])) {
+						foreach ($_POST['items'] as $itemData) {
+							$item = Shop_Item::getById($itemData['id']);
+
+							if ($item) {
+								if ($item->isVisible()) {
+									$return = Shop_Order::addToCurrent($this->page_info['user_data']['uid'], $item, $itemData['quantity']);
+								}
+								else {
+									$return = Shop_Order::removeFromCurrent($this->page_info['user_data']['uid'], $item, INF);
+								}
+							}
+						}
+					}
+					break;
+				case 'remove':
+					if (isset($_POST['id']) && isset($_POST['quantity'])) {
+						$item = Shop_Item::getById($_POST['id']);
+
+						if ($item) {
+							if ($item->isVisible()) {
+								$return = Shop_Order::removeFromCurrent($this->page_info['user_data']['uid'], $item, $_POST['quantity']);
+							}
+							else {
+								$return = Shop_Order::removeFromCurrent($this->page_info['user_data']['uid'], $item, INF);
+							}
+						}
+					}
+					break;
+			}
+
+			if (!$return) {
+				$return = Shop_Order::getCurrent($this->page_info['user_data']['uid']);
+			}
+
+			die (json_encode($return->toArray()));
+		}
+
 		$return = array(
 			'order' => Shop_Order::getCurrent($this->page_info['user_data']['uid'])
 		);

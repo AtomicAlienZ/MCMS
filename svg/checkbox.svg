@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="19px" height="19px" viewBox="0 0 19 19" enable-background="new 0 0 19 19" xml:space="preserve">
+<g id="Checkbox_Not_Check_4">
+	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="9.5" y1="18" x2="9.5" y2="1.0792">
+		<stop  offset="0" style="stop-color:#EAEBEB"/>
+		<stop  offset="1" style="stop-color:#FFFFFF"/>
+	</linearGradient>
+	<path fill="url(#SVGID_1_)" d="M1,1v17h17V1H1z M7.794,14.759L3.646,9.317l1.638-1.329l2.246,2.941l6.395-6.21L15.5,6.296
+		L7.794,14.759z"/>
+</g>
+<g>
+	<path fill="#FFFFFF" d="M16.5,1.5c0.551,0,1,0.449,1,1v14c0,0.551-0.449,1-1,1h-14c-0.551,0-1-0.449-1-1v-14c0-0.551,0.449-1,1-1
+		H16.5 M16.5,0.5h-14c-1.105,0-2,0.895-2,2v14c0,1.105,0.895,2,2,2h14c1.105,0,2-0.895,2-2v-14C18.5,1.395,17.605,0.5,16.5,0.5
+		L16.5,0.5z"/>
+</g>
+<g>
+	<path fill="#DDDDDC" d="M16,1c1.103,0,2,0.897,2,2v13c0,1.103-0.897,2-2,2H3c-1.103,0-2-0.897-2-2V3c0-1.103,0.897-2,2-2H16 M16,0
+		H3C1.343,0,0,1.343,0,3v13c0,1.657,1.343,3,3,3h13c1.657,0,3-1.343,3-3V3C19,1.343,17.657,0,16,0L16,0z"/>
+</g>
+</svg>

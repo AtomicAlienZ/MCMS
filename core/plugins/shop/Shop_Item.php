@@ -247,7 +247,7 @@ class Shop_Item {
 
 		// Sorting
 		usort($return, array('self', 'mediaSorter'));
-//var_dump($return);die;
+
 		return $return;
 	}
 
@@ -367,6 +367,22 @@ class Shop_Item {
 		return $return;
 	}
 
+	public static function getRandomVisisble ($categoryId, $count) {
+		$return = array();
+
+		$db = cms_core::getDBC();
+
+		$result = cms_core::getDBC()->Execute('SELECT * FROM `'.self::DB_TABLE.'` WHERE `id_category` = '.(int)$categoryId.' AND `is_active` = "y" AND `is_banned` = "n" ORDER BY RAND() LIMIT '.(int)$count);
+
+		while ($tmp = $result->fetchRow()) {
+			$o = new self($tmp);
+
+			$return[$o->getId()] = $o;
+		}
+
+		return $return;
+	}
+
 	public function save ($data, $files) {
 		$updarr = self::getInsUpdArray($data, $this);
 		$db = cms_core::getDBC();
@@ -452,4 +468,14 @@ class Shop_Item {
 	public function getPrice()      { return (float)$this->get('price'); }
 	public function getIdCategory() { return (int)$this->get('id_category'); }
 	public function getMedia()      { return $this->media; }
+
+	public function getMediaFirstImage() {
+		foreach ($this->media as $item) {
+			if ($item['type'] == 'image' && $item['active']) {
+				return $item;
+			}
+		}
+
+		return null;
+	}
 }

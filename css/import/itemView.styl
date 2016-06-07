@@ -1,0 +1,155 @@
+.sal-itemView {
+	margin-top: -20px;
+
+	&__catPath {
+		line-height: 15px;
+		padding: 20px 0;
+		color: lighten(#414042, 50%);
+
+		&__item {
+			margin: 0 5px;
+			display: inline-block;
+			vertical-align: baseline;
+			line-height: 19px;
+
+			color: lighten(#505050, 50%);
+			border-bottom-color: lighten(#64b5f6, 75%);
+
+			&:first-child {
+				margin-left: 0;
+			}
+
+			&:hover {
+				color: #505050;
+				border-bottom-color: lighten(#64b5f6, 50%);
+			}
+		}
+	}
+
+	&__header {
+		font-size: 17px;
+		font-weight: bold;
+		line-height: 35px;
+		margin-bottom: 15px;
+	}
+
+	&__content {
+		padding-left: 440px;
+		position: relative;
+		min-height: 525px;
+		margin-bottom: 20px;
+
+		&__gallery {
+			width: 400px;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+
+		&__buy {
+			padding: 19px;
+			border-radius: 4px;
+			border: 1px solid lighten(#8eb262, 75%);
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: space-between;
+			margin-bottom: 15px;
+
+			&__price {
+				@extend .sal-basket__dropdown__item__price;
+			}
+
+			&__addToCart {
+				min-width: 100px;
+				font-size: 14px;
+				padding: 0 10px;
+				text-align: center;
+			}
+		}
+
+		&__description {
+			font-size: 13px;
+			line-height: 20px;
+			margin-bottom: 20px;
+
+			&__title {
+				line-height: 35px;
+				font-size: 11px;
+				color: #a0a0a0;
+			}
+
+			p:last-child {
+				margin-bottom: 0;
+			}
+		}
+
+		&__fields {
+			&__title {
+				line-height: 35px;
+				font-size: 11px;
+				color: #a0a0a0;
+			}
+
+			&__fields {
+				width: 100%;
+				line-height: 25px;
+				font-size: 13px;
+			}
+
+			&__field {
+				&__name {
+					width: 190px;
+					padding-right: 20px;
+					color: #a0a0a0;
+				}
+			}
+		}
+	}
+
+	&__similar {
+		&__title {
+			line-height: 70px;
+			font-weight: bold;
+			color: #505050;
+			font-size: 20px;
+		}
+
+		&__items {
+			width: 100%;
+			white-space: nowrap;
+			overflow: auto;
+			height: 270px;
+		}
+
+		&__item {
+			display: inline-block;
+			width: 260px;
+			margin-left: 20px;
+			border: 0;
+			color: #505050;
+
+			&:first-child {
+				margin: 0;
+			}
+
+			&__image {
+				background: center center no-repeat;
+				background-size: cover;
+				height: 130px;
+				border-radius: 4px;
+			}
+
+			&__title {
+				font-size: 14px;
+				line-height: 50px;
+				width: 100%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+
+			&__price {
+				@extend .sal-basket__dropdown__item__price;
+			}
+		}
+	}
+}

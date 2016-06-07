@@ -1,0 +1,244 @@
+@keyframes sal-basket-loaderRotate {
+	from {transform: rotate(0deg);}
+	to {transform: rotate(360deg);}
+}
+
+.sal-basket {
+	position: relative;
+	display: inline-flex;
+
+	&__button {
+		background-position: 10px center;
+		background-repeat: no-repeat;
+		display: inline-flex;
+		flex-direction: column;
+		height: 50px;
+		justify-content: space-around;
+		line-height: 20px;
+		padding-bottom: 5px;
+		padding-left: 45px;
+		padding-top: 5px;
+		background-image: url("../svg/i-cart.svg");
+
+		&_open {
+			background-color: #8fb262;
+			color: #fff;
+			background-image: url("../svg/i-cart_open.svg");
+		}
+
+		&__title {
+			font-size: 110%;
+			font-weight: 700;
+		}
+
+		&___count {
+			display: block;
+			font-size: 90%;
+		}
+	}
+
+	&__dropdown {
+		position: absolute;
+		display: none;
+		margin-top: 10px;
+		background: #fff;
+		top: 100%;
+		right: 0;
+		//left: 0;
+		border-radius: 4px;
+		box-shadow: 0 0 30px rgba(#000, .1);
+		width: 780px;
+		max-width: 90vw;
+		z-index: 100;
+		//height: 300px;
+
+		&:before {
+			content: '';
+			position: absolute;
+			z-index: 1;
+			right: 30px;
+			bottom: 100%;
+			border: 14px solid transparent;
+			border-top: 0;
+			border-bottom-color: #eeeeee;
+		}
+
+		&__header {
+			background: #eeeeee;
+			font-size: 16px;
+			color: #414042;
+			padding: 0 20px;
+			line-height: 50px;
+			border-radius: 4px 4px 0 0;
+		}
+
+		&__contents {
+			padding: 10px 20px 20px;
+			position: relative;
+
+			&__header {
+				font-weight: bold;
+				font-size: 17px;
+				line-height: 50px;
+			}
+
+			&__loading {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+
+				border-radius: 0 0 4px 4px;
+
+				background: rgba(#fff, .5);
+
+				&:before {
+					content: '';
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					margin: -57px 0 0 -57px;
+					width: 115px;
+					height: 115px;
+					background: transparent center center url('../svg/loader.svg');
+					background-size: contain;
+
+					animation: sal-basket-loaderRotate 1s linear infinite;
+				}
+			}
+
+			&__footer {
+				margin-top: 30px;
+				padding: 20px;
+				box-shadow: 0 0 5px rgba(#000, .1);
+
+				&__total {
+					text-align: right;
+					font-size: 12px;
+					color: #a0a0a0;
+
+					&__amount {
+						font-size: 17px;
+						font-weight: bold;
+						color: #505050;
+						margin-left: 50px;
+					}
+				}
+
+				&__buttons {
+					text-align: right;
+					display: flex;
+					flex-flow: row nowrap;
+					justify-content: space-between;
+					margin-top: 15px;
+
+					&__button {
+						min-width: 140px;
+						text-align: center;
+						font-size: 14px;
+						font-weight: bold;
+					}
+				}
+			}
+		}
+
+		&__item {
+			margin-top: 40px;
+
+			&:after {
+				content: '';
+				display: table;
+				width: 100%;
+				clear: both;
+			}
+
+			&__image {
+				float: left;
+				width: 200px;
+				height: 200px;
+				background: center center no-repeat;
+				background-size: cover;
+				margin-right: 40px;
+				border-radius: 4px;
+				box-shadow: 0 0 5px rgba(#000, .1);
+			}
+
+			&__link {
+				margin: 5px 0 20px;
+				line-height: 25px;
+				border-bottom: 1px solid;
+				font-size: 14px;
+				color: #64b5f6;
+			}
+
+			&__info {
+				display: flex;
+				flex-flow: row nowrap;
+				justify-content: space-between;
+			}
+
+			&__price {
+				display: inline-block;
+				vertical-align: top;
+				border-radius: 4px;
+				line-height: 40px;
+				padding: 0 10px;
+				text-align: center;
+				min-width: 100px;
+				//margin-right: 40px;
+				background: #ffdf5c;
+			}
+
+			&__count {
+				display: inline-block;
+				vertical-align: top;
+				font-size: 12px;
+				color: #a0a0a0;
+				line-height: 40px;
+				//margin-right: 30px;
+
+				&__field {
+					display: inline-block;
+					vertical-align: top;
+					width: 100px;
+					margin: 0 10px 0 20px;
+					height: 40px;
+					border: 1px solid #e6e6e6;
+					line-height: normal;
+					font-weight: bold;
+					color: #505050;
+					font-size: 16px;
+					padding-left: 9px;
+				}
+
+				&__remove {
+					cursor: pointer;
+					color: #64b5f6;
+					text-decoration: underline;
+				}
+			}
+
+			&__sum {
+				display: inline-block;
+				vertical-align: top;
+				height: 40px;
+				font-size: 12px;
+				color: #a0a0a0;
+				padding-top: 10px;
+
+				&__amount {
+					font-weight: bold;
+					font-size: 17px;
+					color: #505050;
+					display: inline-block;
+					margin-left: 15px;
+				}
+			}
+		}
+
+		&__contents__header + &__item {
+			margin-top: 0px;
+		}
+	}
+}

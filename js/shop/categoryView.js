@@ -89,6 +89,7 @@ $(function () {
 		}
 
 		this.date = new CommonDate(this.date);
+		this.imageURL = '/svg/nophoto.svg';
 
 		// Processing fields
 		this.fieldsById = {};
@@ -99,6 +100,14 @@ $(function () {
 			}
 		}
 
+		for(var i in this.media) {
+			if (this.media.hasOwnProperty(i)) {
+				if (this.media[i].active && this.media[i].type == 'image') {
+					this.imageURL = this.media[i].url;
+					break;
+				}
+			}
+		}
 
 		this.isFiltered = false;
 	}
@@ -111,7 +120,8 @@ $(function () {
 		filters: [],
 		page: ko.observable(1),
 		pages: ko.observable(1),
-		perPage: 20,
+		perPage: 21,
+		// perPage: 1,
 		buildPage: function (page) {
 			console.log('buildPage:', page);
 			this.visibleItems = [];
@@ -140,7 +150,8 @@ $(function () {
 
 			var tmp = new PostFilterNumber({
 				config: {
-					name: 'PRICE',
+					isPrice: true,
+					name: 'Price',
 					type: 'Number',
 					getter: function (obj) {
 						return Math.ceil(parseFloat(obj.price));
@@ -174,10 +185,12 @@ $(function () {
 					//console.log(_GLOBAL_SHOP_FIELDSET[i]);
 					if (field.enabled && (field.type == 'select' || field.type == 'multiselect' || field.type == 'int' || field.type == 'float')) {
 						var tmp = {
+								isPrice: false,
 								name: field.names[_GLOBAL_LANG],
 								type: field.type == 'select' || field.type == 'multiselect' ? 'String' : 'Number',
 								options: {
 									// Filter-specific options here
+									type: field.type == 'select' || field.type == 'multiselect' ? 'multiChoice' : 'range'
 								}
 							},
 							pfc;

@@ -222,6 +222,20 @@ class Shop_Category {
 	/**
 	 * @return Shop_Category[]
 	 */
+	public function getParentsArray() {
+		$return = array();
+		$o = $this;
+
+		while ($o = $o->getParent()) {
+			$return[] = $o;
+		}
+
+		return array_reverse($return);
+	}
+
+	/**
+	 * @return Shop_Category[]
+	 */
 	public function getChildren () {
 		return $this->children;
 	}

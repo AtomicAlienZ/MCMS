@@ -1,0 +1,180 @@
+.sal-catView {
+	padding: 10px 0 0 270px;
+	position: relative;
+	color: #505050;
+
+	&:after {
+		content: '';
+		display: table;
+		clear: both;
+	}
+
+	&__aside {
+		width: 250px;
+		float: left;
+		margin-left: -270px;
+
+		&__title {
+			line-height: 40px;
+			font-size: 30px;
+			font-weight: bold;
+			margin: 0;
+		}
+
+		&__subTitle {
+			line-height: 30px;
+			margin: 0;
+			font-weight: normal;
+			font-size: 16px;
+		}
+
+		&__subCategories {
+			margin-top: 20px;
+
+			&__title {
+				line-height: 30px;
+				font-weight: bold;
+				font-size: 16px;
+				margin-bottom: 10px;
+			}
+
+			&__item {
+				display: table;
+				line-height: 20px;
+				padding: 5px 0;
+				border: 0;
+				font-size: 14px;
+			}
+		}
+
+		&__filters {
+			margin-top: 30px;
+		}
+
+		&__filter {
+			margin-top: 20px;
+
+			&:first-child {
+				margin-top: 0;
+			}
+
+			&__name {
+				line-height: 30px;
+				font-size: 16px;
+				font-weight: bold;
+			}
+
+			&__numberValues {
+				text-align: center;
+				line-height: 20px;
+				margin-bottom: 10px;
+			}
+
+			&__numberSlider {
+				margin: 0 7px;
+
+				.ui-slider-handle {
+					border-radius: 8px;
+					background: #8eb262 !important;
+					border-color: #8eb262 !important;
+					cursor: pointer !important;
+				}
+			}
+
+			&__stringValue {
+				padding-left: 35px;
+				cursor: pointer;
+				position: relative;
+				line-height: 20px;
+				font-size: 14px;
+				margin-top: 10px;
+
+				&:before {
+					content: '';
+					position: absolute;
+					width: 19px;
+					height: 19px;
+					border-radius: 2px;
+					background: lighten(#636568, 80%) url('/svg/checkbox.svg') center center no-repeat;
+					left: 0;
+					top: 1px;
+				}
+
+				&_checked:before {
+					background-color: #8eb262;
+				}
+
+				&_disabled {
+					opacity: .7;
+				}
+			}
+		}
+	}
+
+	&__items {
+		margin: 0 -10px;
+	}
+
+	&__item {
+		width: 33.3%;
+		padding: 0 10px;
+		margin-bottom: 30px;
+		border: 0;
+
+		&__image {
+			background: center center no-repeat;
+			background-size: cover;
+			padding-top: 100%;
+			border-radius: 4px;
+		}
+
+		&__title {
+			font-size: 14px;
+			line-height: 25px;
+			max-height: 75px;
+			width: 100%;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			margin-bottom: 10px;
+		}
+
+		&__price {
+			@extend .sal-basket__dropdown__item__price;
+		}
+	}
+
+	&__pagination {
+		text-align: center;
+
+		&__page {
+			display: inline-block;
+			vertical-align: middle;
+			width: 30px;
+			height: 30px;
+			line-height: 28px;
+			margin-left: 20px;
+			border-radius: 4px;
+			border: 1px solid lighten(#8eb262, 75%);
+			cursor: pointer;
+			text-align: center;
+			transition: all .2s;
+
+			&:first-child {
+				margin-left: 0;
+			}
+
+			&:hover {
+				background: lighten(#8eb262, 75%);
+			}
+
+			&_active {
+				&, &:hover {
+					background: #8eb262;
+					border-color: #8eb262;
+					color: #fff;
+				}
+			}
+		}
+	}
+}

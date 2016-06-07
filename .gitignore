@@ -1,3 +1,5 @@
 .idea/*
 
 core/data/access_events.csv
+
+node_modules
