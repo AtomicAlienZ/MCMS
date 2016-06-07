@@ -4,27 +4,27 @@ class cmsLanguages extends cms_core{
 	}
 	function getListEncoding() {
 		$ret = array();
-		$ret["Кирилица"] = array(
+		$ret["пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ"] = array(
 			"windows-1251"	=> "Windows 1251",
 			"ISO-8859-5"	=> "ISO-8859-5",
 		);
-		$ret["Вестерн"] = array(
+		$ret["пїЅпїЅпїЅпїЅпїЅпїЅпїЅ"] = array(
 			"windows-1252"	=> "Windows 1252",
 			"ISO-8859-1"	=> "ISO-8859-1",
 		);
-		$ret["Западноевропейская"] = array(
+		$ret["пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ"] = array(
 			"windows-1250"	=> "Windows 1250",
 			"ISO-8859-2"	=> "ISO-8859-2",
 		);
-		$ret["Греческая"] = array(
+		$ret["пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ"] = array(
 			"windows-1253"	=> "Windows 1253",
 			"ISO-8859-7"	=> "ISO-8859-7",
 		);
-		$ret["UTF-8"] = "Юникод";
+		$ret["UTF-8"] = "пїЅпїЅпїЅпїЅпїЅпїЅ";
 		return $ret;
 	}
-	function initLanguages(&$parent) {
-	}
+//	function initLanguages(&$parent) {
+//	}
 	function getAllLanguages() {
 		$sql = "SELECT * FROM ".$this->cms->tables["languages"]." ORDER BY ord ASC";
 		$results = $this->dbc->Execute($sql);

@@ -18,7 +18,7 @@
 	</div>
 
 	<!-- ko foreach: fields -->
-	<div style="border: 1px solid red;padding: 10px;margin-bottom: 20px;;">
+	<div style="border: padding: 20px 20px 20px 40px; box-shadow: 0px 2px 4px rgba(20, 20, 20, .1); margin: 20px 0;">
 		<input type="hidden">
 		<!-- ko foreach: Object.keys(names) -->
 			<div>

@@ -10,70 +10,137 @@
 
 <body>
 
-{*{assign var='tpl' value=$pathToIncTemplate|cat:'block/b-header.tpl'}
-{include file=$tpl}*}
-<div class="mj-wrapper">
+<body class="sal-body">
 
-	<div class="mj-header">
 
-		<a href="/{$lang}/" class="mj-header__logo"></a>
+<header class="sal-header">
+	<div class="sal-header__inner">
 
-		{if $handlers.main_menu.countTop > 0}
-			{assign var='menu' value=$handlers.main_menu.top}
+		<nav class="sal-header__menu">
+			<div class="sal-header__menu__item">
 
-			<nav class="mj-header__menu">
+				<div class="sal-currency__menu">
+				</div>
 
-				{section name=item loop=$menu}
-					{if $structure.s_id neq $menu[item].s_id}
-						<div class="mj-header__menu__item">
-							<a class="mj-link" href="{$menu[item].url}">{$menu[item].title}</a>
-						</div>
-					{else}
-						<div class="mj-header__menu__item">
-							{$menu[item].title}
-						</div>
-					{/if}
-				{/section}
+			</div>
 
-			</nav>
-		{/if}
+			<div class="sal-header__menu__item">
 
-		{assign var='languages' value=$langs}
+				<div class="sal-language__menu">
+				</div>
 
-		<nav class="mj-header__menu mj-header__menu_languages">
-			{section name=item loop=$languages}
+			</div>
 
-				{if $languages[item] neq $lang}
-
-					<div class="mj-header__menu__item">
-						<a class="mj-link" href="/{$languages[item]}/">{$languages[item]}</a>
-					</div>
-
-				{/if}
-
+			{section name=container loop=$containers.additional_1}
+				{$containers.additional_1[container].output}
 			{/section}
+
+
+		</nav>
+
+		<nav class="sal-mainLine">
+
+			<a href="/" class="sal-logo"></a>
+
+			<div class="sal-search">
+				<span class="sal-search__phrase">I'm looking for</span>
+				<input class="sal-search__input" type="text">
+				<a href="#" class="sal-ui__button">Find it!</a>
+			</div>
+
+			<div class="sal-mainLine__controls">
+
+				<div class="sal-ui__button sal-ui__button_light i-heart">
+					<span>Whislist</span>
+					<span>No items</span>
+				</div>
+
+				<div class="sal-ui__button sal-ui__button_light i-cart">
+					<span>My cart</span>
+					<span>1050 items</span>
+				</div>
+
+			</div>
+
+		</nav>
+
+		<nav class="sal-categories">
+
+			{if $handlers.main_menu.countTop > 0}
+				{assign var='menu' value=$handlers.main_menu.top}
+
+					{section name=item loop=$menu}
+						{if $structure.s_id neq $menu[item].s_id}
+								<a class="sal-categories__item" href="{$menu[item].url}">{$menu[item].title}</a>
+						{else}
+							<div class="sal-categories__item">
+								{$menu[item].title}
+							</div>
+						{/if}
+					{/section}
+
+			{/if}
+		</nav>
+
+	</div>
+</header>
+
+<div class="sal-content">
+
+			{section name=container loop=$containers.main}
+				{$containers.main[container].output}
+			{/section}
+
+</div>
+
+<footer class="sal-footer">
+
+	<div class="sal-footer__block">
+
+		<nav class="sal-footer__menu">
+
+			<span class="sal-footer__menu__title">For customers</span>
+
+			<div class="sal-footer__menu__item">
+				<a href="/register/" >Register</a>
+			</div>
+
+			<div class="sal-footer__menu__item">
+				<a href="/feedback/" >Leave Feedback</a>
+			</div>
+
+		</nav>
+
+		<nav class="sal-footer__menu">
+
+			<span class="sal-footer__menu__title">About</span>
+
+			<div class="sal-footer__menu__item">
+				<a href="/about-us/" >About us</a>
+			</div>
+
+			<div class="sal-footer__menu__item">
+				<a href="/privacy-policy/" >Privacy Policy</a>
+			</div>
+
+			<div class="sal-footer__menu__item">
+				<a href="/news/" >News</a>
+			</div>
+
 		</nav>
 
 	</div>
 
-	<div class="mj-body">
-
-
-		<div class="mj-body__content">
-			{section name=container loop=$containers.main}
-				{$containers.main[container].output}
-			{/section}
-		</div>
-
-
+	<div class="sal-footer__block">
 
 	</div>
 
-	<div class="mj-footer">
-		© 2015 Mjolnir LLC
+	<div class="sal-credits">
+		<p>© CyBy 2016</p>
+		<p>Any content on this site can be used only by owners permission.</p>
 	</div>
 
-</div>
+</footer>
 
 </body>
 

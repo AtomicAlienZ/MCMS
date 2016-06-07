@@ -1,0 +1,152 @@
+.sal-header {
+
+	&__inner {
+	}
+
+	&__menu {
+		height: 40px;
+		padding: 0 20px;
+
+		background-color: $sal-light-bg;
+
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+
+		&__item {
+			margin-left: 20px;
+		}
+
+		margin-bottom: 20px;
+	}
+
+}
+
+.sal-myCyBy {
+	position: relative;
+	cursor: pointer;
+	padding: 10px 0;
+
+	&__submenu {
+		position: absolute;
+		background-color: #fff;
+		box-shadow: 0 2px 4px rgba(20, 20, 20, .25);
+		padding: 20px;
+		right: 0;
+		top: 30px;
+		min-width: 300px;
+
+		display: none;
+
+		cursor: default;
+		flex-direction: column;
+
+		z-index: 100;
+
+		&__item {
+			//display: block;
+			margin: 10px 0;
+		}
+	}
+
+	&:hover .sal-myCyBy__submenu {
+		display: flex;
+	}
+}
+
+.sal-mainLine {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	&>* {
+		margin-right: 20px;
+	}
+
+	&>*:last-child {
+		margin-right: 0;
+	}
+
+	.sal-logo {
+		display: block;
+		min-width: 160px;
+		height: 50px;
+		//background-color: $sal-green;
+
+		background-image: url(../svg/logo.svg);
+		background-repeat: no-repeat;
+		background-position: left center;
+	}
+
+	.sal-search {
+		display: flex;
+		align-items: center;
+
+		&>* {
+			margin-right: 20px;
+		}
+
+		&__input {
+			height: 40px;
+			margin-right: 0;
+			min-width: 200px;
+		}
+	}
+
+	&__controls {
+
+		display: flex;
+
+		&>*:first-child {
+			margin-right: 20px;
+		}
+
+		.i-heart {
+			background-image: url(../svg/i-heart.svg);
+		}
+
+		.i-cart {
+			background-image: url(../svg/i-cart.svg);
+		}
+
+		.i-heart, .i-cart {
+			height: 50px;
+			padding-left: 45px;
+			padding-top: 5px;
+			padding-bottom: 5px;
+			line-height: 20px;
+
+			background-repeat: no-repeat;
+			background-position: 10px center;
+
+			display: inline-flex;
+			flex-direction: column;
+			justify-content: space-around;
+
+			span {
+
+				display: block;
+				font-size: 90%;
+
+				&:first-child {
+					font-size: 110%;
+					font-weight: bold;
+				}
+			}
+		}
+	}
+
+}
+
+.sal-categories {
+	padding: 10px 0;
+	margin: 20px 0;
+	border-top:    1px solid rgba(230, 230, 230, 1);
+	border-bottom: 1px solid rgba(230, 230, 230, 1);
+
+	display: flex;
+
+	&>* {
+		margin-right: 20px;
+	}
+}

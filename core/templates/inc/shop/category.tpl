@@ -61,29 +61,59 @@
 	</div>
 	<!-- /ko -->
 	<hr>
-	<div data-bind="foreach: pageContent">
-		<div style="padding: 20px;margin: 20px;border: 1px solid;">
-			<!-- ko text: name --><!-- /ko --><br>
-			<!-- ko text: price --><!-- /ko -->
-			<div>
-				<!-- ko foreach: fields -->
-				<!-- ko if: enabled -->
-				<span style="display: inline-block;vertical-align: top;margin-right: 20px;">
-					<b data-bind="text: name"></b>
-					<!-- ko if: typeof value != 'object' -->
-						<!-- ko text: value --><!-- /ko -->
+
+	<div class="sal-shop sal-shop_popular">
+
+		<span class="sal-shop__label">Category view</span>
+
+		<div class="sal-shop__container" data-bind="foreach: pageContent">
+
+
+
+			<a class="sal-shop__item" href="{$output._baseURL}?action=view&id=" data-bind="attr: { href: '{$output._baseURL}?action=item&id=' + id }">
+				<div class="sal-shop__item__thumb">
+
+					<div class="sal-shop__item__special">-40%</div>
+
+				</div>
+				<div class="sal-shop__item__title">
+					<!-- ko text: name --><!-- /ko -->
+
+					<!-- ko foreach: fields -->
+					<!-- ko if: enabled -->
+						<span style="display: inline-block;vertical-align: top;margin-right: 20px;">
+							<b data-bind="text: name"></b>
+							<!-- ko if: typeof value != 'object' -->
+								<!-- ko text: value --><!-- /ko -->
+							<!-- /ko -->
+
+							<!-- ko if: typeof value == 'object' -->
+								<!-- ko foreach: Object.keys(value) -->
+									<!-- ko text: $parent.value[$data] --><!-- /ko -->,
+								<!-- /ko -->
+							<!-- /ko -->
+						</span>
+					<!-- /ko -->
 					<!-- /ko -->
 
-					<!-- ko if: typeof value == 'object' -->
-						<!-- ko foreach: Object.keys(value) -->
-							<!-- ko text: $parent.value[$data] --><!-- /ko -->,
-						<!-- /ko -->
-					<!-- /ko -->
-				</span>
-				<!-- /ko -->
-				<!-- /ko -->
-			</div>
-			<a href="{$output._baseURL}?action=view&id=" data-bind="attr: { href: '{$output._baseURL}?action=item&id=' + id }">GO TO</a>
+				</div>
+
+				<div class="sal-shop__item__prices">
+					<div class="sal-shop__item__prices__price">
+						<span class="sal-shop__item__prices__price__old"><!-- ko text: price --><!-- /ko --></span>
+						<span class="sal-shop__item__prices__price__actual"><!-- ko text: price --><!-- /ko --></span>
+						<span class="sal-shop__item__prices__price__description">Buy now</span>
+					</div>
+					<div class="sal-shop__item__prices__price">
+						<span class="sal-shop__item__prices__price__actual"><!-- ko text: price --><!-- /ko --></span>
+						<span class="sal-shop__item__prices__price__description">Current bid</span>
+					</div>
+				</div>
+
+			</a>
 		</div>
+
 	</div>
+
+
 </div>

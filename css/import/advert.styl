@@ -1,0 +1,64 @@
+.sal-advert {
+	display: block;
+	margin: 20px 0;
+	width: 100%;
+
+	&__button {
+		position: absolute;
+		z-index: 20;
+
+		bottom: 40px;
+		left: 40px;
+	}
+
+	&__big {
+		width: 100%;
+		min-height: 100%;
+
+		position: relative;
+
+		background-image: url(../test/ad.jpg);
+		background-size: cover;
+		z-index: 10;
+
+		&::before {
+			content: '';
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(20, 20, 20, .1);
+			z-index: 20;
+		}
+	}
+
+	&__medium {
+		height: 280px;
+
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+
+		&__main {
+			width: 80%;
+			height: 100%;
+			background-color: rgba(20, 20, 20, .25);
+			padding-right: 20px;
+		}
+
+		&__secondary {
+			width: 20%;
+			height: 100%;
+			padding-left: 20px;
+
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+
+			&__item {
+				height: 45%;
+				background-color: rgba(20, 20, 20, .25);
+			}
+		}
+
+	}
+}

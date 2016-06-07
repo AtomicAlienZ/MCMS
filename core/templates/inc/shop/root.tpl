@@ -1,17 +1,17 @@
 {function name=TPLBuildCat}
-	<div style="padding: 20px 20px 20px 40px;border: 1px solid red;">
-		CATEGORY id: {$cat->getId()}
+	<div style="padding: 20px 20px 20px 40px; box-shadow: 0px 2px 4px rgba(20, 20, 20, .1); margin: 20px 0;">
+		Category id: {$cat->getId()}
 		<br>
-		ALIAS: {$cat->getAlias()}
+		Alias: {$cat->getAlias()}
 		<br>
-		NAMES: {foreach from=$langs item=l}"{$cat->getName($l)}" ({$l}), {/foreach}
+		Names: {foreach from=$langs item=l}"{$cat->getName($l)}" ({$l}), {/foreach}
 		{if $cat->getFieldset()}
 			<br>
-			FIELDSET: {$cat->getFieldset()->getName()}
+			Fieldset: {$cat->getFieldset()->getName()}
 		{/if}
 		<br>
 		{if $cat->isVisible()}
-			<a href="{$output._baseURL}?action=add&id={$cat->getId()}">ADD ITEM</a>
+			<a class="sal-ui__button" style="margin-top: 20px;" href="{$output._baseURL}?action=add&id={$cat->getId()}">ADD ITEM</a>
 		{/if}
 		{foreach from=$cat->getChildren() item=child name=pewpew}
 			{TPLBuildCat cat=$child}

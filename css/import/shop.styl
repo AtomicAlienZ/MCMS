@@ -1,0 +1,98 @@
+.sal-shop {
+	display: block;
+
+	&_sidebar {
+		display: flex;
+	}
+
+	&__sidebar {
+		width: 25%;
+	}
+
+	&__main {
+		width: 75%;
+	}
+
+	&__container {
+		display: flex;
+
+		&>* {
+			margin-right: 20px;
+		}
+
+		&_line {
+			overflow-x: scroll;
+		}
+	}
+
+	&__label {
+		font-size: 125%;
+		margin-bottom: 20px;
+		display: block;
+	}
+
+	&__item {
+		display: block;
+		width: 260px;
+		min-width: 220px;
+		min-height: 400px;
+		margin-bottom: 20px;
+
+		//outline: 1px solid red;
+
+		&__thumb {
+			width: 100%;
+			min-height: 260px;
+			border-radius: 4px;
+
+			background-image: url(../test/item.png);
+
+			margin-bottom: 10px;
+		}
+
+		&__title {
+			font-size: 110%;
+			margin-bottom: 10px;
+		}
+
+		&__prices {
+			display: flex;
+			justify-content: space-between;
+
+			&__price {
+				cursor: pointer;
+				background-color: #ffdf5c;
+				padding: 5px;
+				text-align: center;
+				width: 45%;
+				position: relative;
+
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+
+				&__old {
+					font-size: 85%;
+					text-decoration: line-through;
+					display: block;
+				}
+
+				&__actual {
+					font-size: 120%;
+					font-weight: bold;
+				}
+
+				&__description {
+					position: absolute;
+					bottom: -20px;
+					font-size: 85%;
+					width: 100%;
+					left: 0;
+				}
+
+
+			}
+		}
+
+	}
+}

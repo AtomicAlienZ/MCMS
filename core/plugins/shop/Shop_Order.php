@@ -128,18 +128,6 @@ class Shop_Order {
 		return $order;
 	}
 
-	public static function removeFromCurrent ($uid, Shop_Item $item, $quantity) {
-		$order = self::getCurrent($uid);
-
-		if (!$order) {
-			$order = self::create($uid);
-		}
-
-		$order->removeItem($item, $quantity);
-
-		return $order;
-	}
-
 	public function getId ()     { return $this->id; }
 	public function getStatus () { return $this->data['status']; }
 	public function getPrice ()  { return $this->price; }
@@ -176,6 +164,7 @@ class Shop_Order {
 		$quantity = (int)$quantity;
 
 		if ($item->isVisible() && $quantity > 0 && $this->getStatus() == self::STATUS_NEW) {
+			$price = $item->getPrice() * $quantity;
 			$this->getItems();
 			$db = cms_core::getDBC();
 
@@ -222,31 +211,6 @@ class Shop_Order {
 
 		// Recalculating price
 		$this->recalculatePrice();
-	}
-
-	public function removeItem (Shop_Item $item, $quantity) {
-		$this->getItems();
-
-		if ($quantity !== INF) {
-			$quantity = (int)$quantity;
-		}
-
-		if (isset($this->items[$item->getId()]) && $quantity > 0) {
-			$db = cms_core::getDBC();
-
-			if ($this->items[$item->getId()]['quantity'] > $quantity) {
-				$this->items[$item->getId()]['quantity'] -= $quantity;
-
-				$db->Execute('UPDATE `'.self::DB_DEPS_TABLE.'` SET `quantity` = `quantity` - '.$quantity.' WHERE `id` = '.$this->items[$item->getId()]['linkid']);
-			}
-			else {
-				unset($this->items[$item->getId()]);
-
-				$db->Execute('DELETE FROM `'.self::DB_DEPS_TABLE.'` WHERE `id` = '.$this->items[$item->getId()]['linkid']);
-			}
-
-			$this->recalculatePrice();
-		}
 	}
 
 	public function toArray() {

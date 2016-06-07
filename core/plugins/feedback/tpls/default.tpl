@@ -18,12 +18,9 @@
 			Также мы с радостью прочитаем ваше письмо и ответим вам.
 		</p>
 		<p class="q-contacts__info__mail">
-			<a href="mailto:boss@quartzetto.com.ua" class="q-contacts__info__link">boss@quartzetto.com.ua</a>
+			<a href="mail@mail.com.ua" class="q-contacts__info__link">mail@mail.com.ua</a>
 		</p>
-		{*<p class="q-contacts__info__text">
-			Заезжайте к нам в
-			<a href="#" class="q-contacts__info__link">шоурум</a>
-		</p>*}
+
 	</div>
 
 	<noindex>

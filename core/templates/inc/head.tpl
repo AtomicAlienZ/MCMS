@@ -19,7 +19,7 @@
 <!-- !Fonts -->
 
 <!-- Stylesheets -->
-<link rel="stylesheet" href="http://mjolnir.com.ua/css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 <!-- !Stylesheets -->
 
 <!-- JavaScript -->
@@ -28,6 +28,10 @@
 <script type='text/javascript' src='/js/knockout-3.4.0.js'></script>
 
 <!-- !JavaScript -->
+
+<!-- fotorama.css & fotorama.js. -->
+<link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script> <!-- 16 KB -->
 
 {*
 <!-- fotorama.css & fotorama.js. -->

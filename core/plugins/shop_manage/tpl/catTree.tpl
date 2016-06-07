@@ -1,6 +1,6 @@
 {function name=TPLBuildCat}
-	<div style="padding: 20px 20px 20px 40px;border: 1px solid red;">
-		CATEGORY id: {$cat->getId()} <a href="?plg=shop_manage&arg[action]=editCat&arg[id]={$cat->getId()}">EDIT</a>
+	<div style="padding: padding: 20px 20px 20px 40px; box-shadow: 0px 2px 4px rgba(20, 20, 20, .1); margin: 20px 0;">
+		Category id: {$cat->getId()} <a href="?plg=shop_manage&arg[action]=editCat&arg[id]={$cat->getId()}">EDIT</a>
 		{foreach from=$cat->getChildren() item=child name=pewpew}
 			{TPLBuildCat cat=$child}
 		{/foreach}
