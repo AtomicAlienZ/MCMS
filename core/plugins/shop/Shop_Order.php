@@ -146,6 +146,7 @@ class Shop_Order {
 
 	public function getItems () {
 		if (!isset($this->items)) {
+			$this->items = array();
 			$db = cms_core::getDBC();
 
 			$result = $db->Execute('SELECT * FROM `'.self::DB_DEPS_TABLE.'` WHERE `id_order` = '.$this->getId());
@@ -241,7 +242,7 @@ class Shop_Order {
 			}
 			else {
 				$db->Execute('DELETE FROM `'.self::DB_DEPS_TABLE.'` WHERE `id` = '.$this->items[$item->getId()]['linkid']);
-				
+
 				unset($this->items[$item->getId()]);
 			}
 

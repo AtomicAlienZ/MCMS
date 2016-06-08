@@ -2,16 +2,16 @@
 	<div class="sal-ui__button sal-ui__button_light sal-basket__button js-common-dropDown__toggle" data-bind="dropDown: { addClass: 'sal-basket__button_open' }">
 		<span class="sal-basket__button__title">My cart</span>
 		<span class="sal-basket__button__count">
-			<!-- ko if: !order() -->
+			<!-- ko if: !order() || !order().total() -->
 				Empty
 			<!-- /ko -->
-			<!-- ko if: order() -->
+			<!-- ko if: order() && order().total() -->
 			<!-- ko text: order().total() + ' items' --><!-- /ko -->
 			<!-- /ko -->
 		</span>
 	</div>
-	<!-- ko if: order() -->
-	<div class="sal-basket__dropdown js-common-dropDown__dropdown" style="display: none;" data-bind="click: function (d, e) { e.stopPropagation(); }">
+	<!-- ko if: order() && order().total() -->
+	<div class="sal-basket__dropdown js-common-dropDown__dropdown" style="display: none;" data-bind="click: function (d, e) { if (!$(e.target).is('a')) e.stopPropagation(); }">
 		<div class="sal-basket__dropdown__header">My cart</div>
 		<div class="sal-basket__dropdown__contents">
 			<!-- ko if: loading -->
@@ -23,7 +23,7 @@
 			</div>
 			<!-- ko foreach: Object.keys(order().items() || { }) -->
 			<div data-bind="with: $parent.order().items()[$data]" class="sal-basket__dropdown__item">
-				<div class="sal-basket__dropdown__item__image" data-bind="attr: { style: 'background-image: url(\''+(item.media.length ? item.media[0].miniurl : '/svg/nophoto.svg')+'\')' }"></div>
+				<div class="sal-basket__dropdown__item__image" data-bind="attr: { style: 'background-image: url(\''+(image ? image : '/svg/nophoto.svg')+'\')' }"></div>
 
 				<a href="" data-bind="attr: { href: '/?action=item&id=' + item.id }, text: item.name" class="sal-basket__dropdown__item__link"></a>
 
@@ -98,6 +98,17 @@ $(function () {
 					for (var i in data.items) {
 						if (data.items.hasOwnProperty(i)) {
 							total += data.items[i].quantity;
+
+							data.items[i].image = null;
+
+							if (data.items[i].item.media instanceof Array) {
+								for (var j = 0; j < data.items[i].item.media.length; j++) {
+									if (data.items[i].item.media[j].type == 'image' && data.items[i].item.media[j].active) {
+										data.items[i].image = data.items[i].item.media[j].url;
+										break;
+									}
+								}
+							}
 						}
 					}
 

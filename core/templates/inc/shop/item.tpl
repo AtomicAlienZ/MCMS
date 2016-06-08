@@ -36,11 +36,21 @@
 				     data-nav="thumbs"
 				     data-thumbwidth="93"
 				     data-thumbheight="93"
+				     data-thumbfit="contain"
 				     data-thumbmargin="8">
 					{foreach from=$media item=item}
-						<a href="{$item.url}" data-full="{$item.originalurl}">
-							<img src="{if isset($item.miniurl)}{$item.miniurl}{/if}">
-						</a>
+						{if $item.type == 'image'}
+							<a href="{$item.url}" data-full="{$item.originalurl}">
+								<img src="{if isset($item.miniurl)}{$item.miniurl}{/if}">
+							</a>
+						{elseif $item.type == 'video'}
+							<div data-thumb="/svg/youTubeIcon.svg">
+								{assign var=url value=$item.url}
+								{assign var=url value=$url|replace:'https://youtu.be/':''}
+								{assign var=url value=$url|replace:'https://www.youtube.com/watch?v=':''}
+								<iframe width="400" height="400" src="https://www.youtube.com/embed/{$url}?enablejsapi=1" class="js-fotoramaCustom__videoIframe" frameborder="0" allowfullscreen></iframe>
+							</div>
+						{/if}
 					{/foreach}
 				</div>
 
@@ -57,6 +67,13 @@
 								fotorama.setOptions({
 									fit: 'cover'
 								});
+							}
+						})
+						.on('fotorama:show', function (e, fotorama) {
+							var $players = $('.js-fotoramaCustom__videoIframe');
+
+							for (var i = 0; i < $players.length; i++) {
+								$players[i].contentWindow.postMessage('{ "event":"command","func":"pauseVideo","args":"" }', '*')
 							}
 						})
 						.fotorama();
