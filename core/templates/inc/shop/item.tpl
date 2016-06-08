@@ -25,7 +25,45 @@
 
 	<div class="sal-itemView__content">
 		<div class="sal-itemView__content__gallery">
-			TODO
+			{assign var=media value=$output.item->getMediaActive()}
+			{if count($media)}
+				<div class="sal-itemView__content__gallery__fotorama js-fotoramaCustom"
+				     data-fit="cover"
+				     data-auto="false" {*needed for fullscreen magic*}
+				     data-allowfullscreen="true"
+				     data-width="100%"
+				     data-ratio="1/1"
+				     data-nav="thumbs"
+				     data-thumbwidth="93"
+				     data-thumbheight="93"
+				     data-thumbmargin="8">
+					{foreach from=$media item=item}
+						<a href="{$item.url}" data-full="{$item.originalurl}">
+							<img src="{if isset($item.miniurl)}{$item.miniurl}{/if}">
+						</a>
+					{/foreach}
+				</div>
+
+				<script>
+					$('.js-fotoramaCustom')
+						.on('fotorama:fullscreenenter fotorama:fullscreenexit', function (e, fotorama) {
+							if (e.type === 'fotorama:fullscreenenter') {
+								// Options for the fullscreen
+								fotorama.setOptions({
+									fit: 'scaledown'
+								});
+							} else {
+								// Back to normal settings
+								fotorama.setOptions({
+									fit: 'cover'
+								});
+							}
+						})
+						.fotorama();
+				</script>
+			{else}
+				<div class="sal-itemView__content__gallery__noImage"></div>
+			{/if}
 		</div>
 		<div class="sal-itemView__content__buy">
 			<money class="sal-itemView__content__buy__price" amount="{$output.item->getPrice()}" currency="USD"></money>
@@ -57,18 +95,31 @@
 	</div>
 
 	{strip}
-	<div class="sal-itemView__similar">
-		<div class="sal-itemView__similar__title">Similar items</div>
-		<div class="sal-itemView__similar__items">
-			{foreach from=$output.similar item=item}
-				{assign var=media value=$item->getMediaFirstImage()}
-				<a href="/?action=item&id={$item->getId()}" class="sal-itemView__similar__item">
-					<div class="sal-itemView__similar__item__image" style="background-image: url({if $media}{$media.url}{else}/svg/nophoto.svg{/if});"></div>
-					<div class="sal-itemView__similar__item__title">{$item->getName($lang)}</div>
-					<money class="sal-itemView__similar__item__price" amount="{$item->getPrice()}" currency="USD"></money>
-				</a>
-			{/foreach}
+		<div class="sal-itemView__similar">
+			<div class="sal-itemView__similar__title">Similar items</div>
+
+			<div class="sal-slyScroll js-slyScroller">
+				<div class="sal-slyScroll__frame js-slyScroller__frame">
+					<div class="sal-slyScroll__frame__slidee">
+
+						{foreach from=$output.similar item=item}
+							{assign var=media value=$item->getMediaFirstImage()}
+							<a href="/?action=item&id={$item->getId()}" class="sal-itemView__similar__item">
+								<div class="sal-itemView__similar__item__image" style="background-image: url({if $media}{$media.url}{else}/svg/nophoto.svg{/if});"></div>
+								<div class="sal-itemView__similar__item__title">{$item->getName($lang)}</div>
+								<money class="sal-itemView__similar__item__price" amount="{$item->getPrice()}" currency="USD"></money>
+							</a>
+						{/foreach}
+
+					</div>
+				</div>
+				<div class="sal-slyScroll__scrollBar js-slyScroller__scrollBar">
+					<div class="sal-slyScroll__scrollBar__handle"></div>
+				</div>
+				<div class="sal-slyScroll__arrow sal-slyScroll__arrow_prev js-slyScrollerPrev"></div>
+				<div class="sal-slyScroll__arrow sal-slyScroll__arrow_next js-slyScrollerNext"></div>
+			</div>
+
 		</div>
-	</div>
 	{/strip}
 </div>

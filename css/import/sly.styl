@@ -1,0 +1,54 @@
+.sal-slyScroll {
+	position: relative;
+
+	&__frame {
+		width: 100%;
+		overflow: hidden;
+		padding: 0;
+		margin: 0;
+
+		&__slidee {
+			white-space: nowrap;
+			padding: 0;
+			margin: 0;
+			height: 100%;
+		}
+	}
+
+	&__scrollBar {
+		height: 4px;
+		position: relative;
+		background: #e6e6e6;
+		margin-top: 20px;
+		border-radius: 4px;
+
+		&__handle {
+			height: 4px;
+			position: absolute;
+			background: #8eb262;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+	}
+
+	&__arrow {
+		position: absolute;
+		width: 11px;
+		height: 41px;
+		background: url('/svg/sly-arrow.svg');
+		top: 50px;
+		left: -30px;
+		cursor: pointer;
+
+		&.disabled {
+			opacity: .3;
+			cursor: auto;
+		}
+
+		&_next {
+			left: auto;
+			right: -30px;
+			transform: rotate(180deg);
+		}
+	}
+}

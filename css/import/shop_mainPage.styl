@@ -1,0 +1,102 @@
+.sal-mainPage {
+	&__popular {
+		width: 100%;
+		margin-bottom: 20px;
+
+		&__header {
+			line-height: 55px;
+			font-size: 20px;
+			font-weight: bold;
+		}
+
+		.sal-slyScroll__arrow {
+			top: 110px;
+		}
+
+		&__item {
+			display: inline-block;
+			vertical-align: top;
+			width: 260px;
+			margin-left: 20px;
+			border: 0;
+			color: #505050;
+
+			&:first-child {
+				margin: 0;
+			}
+
+			&__image {
+				background: center center no-repeat;
+				background-size: cover;
+				border-radius: 4px;
+				padding-top: 100%;
+			}
+
+			&__title {
+				font-size: 14px;
+				line-height: 50px;
+				width: 100%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+
+			&__price {
+				@extend .sal-basket__dropdown__item__price;
+			}
+		}
+	}
+
+	&__sale {
+		@extend .sal-mainPage__popular;
+	}
+
+	&__recommended {
+		margin-bottom: 20px;
+		padding-left: 75%;
+		position: relative;
+
+		&__main {
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			width: 75%;
+			border-radius: 4px;
+			background: center center no-repeat;
+			background-size: cover;
+			border: 0;
+			padding: 65px 75px 0;
+			color: #fff;
+			font-weight: bold;
+			font-size: 60px;
+			text-shadow: 0 0 3px #000;
+		}
+
+		&__secondary, &__info {
+			display: block;
+			border: 0;
+			margin: 0 0 20px 20px;
+			border-radius: 4px;
+			height: 150px;
+			background: center center no-repeat;
+			background-size: cover;
+		}
+
+		&__info {
+			border: 1px solid #e5f2dc;
+			margin-bottom: 0;
+			line-height: 30px;
+			padding: 10px;
+			font-weight: bold;
+			font-size: 20px;
+
+			&__learnMore {
+				display: block;
+				margin-top: 20px;
+				font-weight: normal;
+				font-size: 14px;
+				line-height: normal;
+			}
+		}
+	}
+}

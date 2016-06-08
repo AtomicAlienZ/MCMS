@@ -19,6 +19,7 @@
 <!-- !Fonts -->
 
 <!-- Stylesheets -->
+<link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
 <link rel="stylesheet" href="/css/style.css">
 <!-- !Stylesheets -->
 
@@ -34,11 +35,39 @@
 <!-- !JavaScript -->
 
 <!-- fotorama.css & fotorama.js. -->
-<link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script> <!-- 16 KB -->
 
-{*
-<!-- fotorama.css & fotorama.js. -->
-<link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.3/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.3/fotorama.js"></script> <!-- 16 KB -->
-*}
+{* SLY *}
+<script src="/js/sly.min.js"></script>
+<script>
+	$(function () {
+		$('.js-slyScroller').each(function () {
+			var $this = $(this);
+			$this.find('.js-slyScroller__frame')
+				.sly({
+					horizontal: 1,
+					itemNav: 'basic',
+					smart: 0,
+					mouseDragging: 1,
+					touchDragging: 1,
+					releaseSwing: 1,
+					startAt: 0,
+					scrollBar: $this.find('.js-slyScroller__scrollBar'),
+					scrollBy: 1,
+					pagesBar: $('.pages'),
+					activatePageOn: 'click',
+					speed: 300,
+					elasticBounds: 1,
+					dragHandle: 1,
+					dynamicHandle: 1,
+					clickBar: 1,
+
+					// Buttons
+					prevPage: $this.find('.js-slyScrollerPrev'),
+					nextPage: $this.find('.js-slyScrollerNext')
+				});
+//				.find('money').each(function () { $(this).trigger('cc:updated'); });
+//				.sly('on', 'load', function () { console.log(arguments, this.frame); });
+		});
+	});
+</script>

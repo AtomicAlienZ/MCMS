@@ -47,3 +47,6 @@ ALTER TABLE `pm_shop_orders` CHANGE `id_user` `id_user` INT(11) UNSIGNED NOT NUL
 ALTER TABLE `pm_shop_orders` ADD `hash` CHAR(32) NOT NULL AFTER `id_user`, ADD INDEX (`hash`);
 
 CREATE TABLE `mcms`.`pm_shop_orders_items` ( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT , `id_order` INT UNSIGNED NOT NULL , `id_item` INT UNSIGNED NOT NULL , `price` DECIMAL(10,2) NOT NULL , `quantity` INT UNSIGNED NOT NULL , PRIMARY KEY (`id`), INDEX (`id_order`)) ENGINE = MyISAM;
+
+-- 08.06.2016
+ALTER TABLE `pm_shop_items` ADD `is_popular` ENUM('n','y') NOT NULL DEFAULT 'n' AFTER `is_banned`, ADD `is_recommended` ENUM('n','y') NOT NULL DEFAULT 'n' AFTER `is_popular`;

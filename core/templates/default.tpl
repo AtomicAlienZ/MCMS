@@ -14,9 +14,8 @@
 
 
 <header class="sal-header">
-	<div class="sal-header__inner">
-
-		<nav class="sal-header__menu">
+	<nav class="sal-header__menu">
+		<div class="sal-header__menu__inner">
 			<div class="sal-header__menu__item">
 
 				<div class="sal-currency__menu">
@@ -34,9 +33,11 @@
 			{section name=container loop=$containers.additional_1}
 				{$containers.additional_1[container].output}
 			{/section}
+		</div>
+	</nav>
 
+	<div class="sal-header__inner">
 
-		</nav>
 
 		<nav class="sal-mainLine">
 
@@ -55,10 +56,13 @@
 					<span>No items</span>
 				</div>
 
-				<div class="sal-ui__button sal-ui__button_light i-cart">
+				{*<div class="sal-ui__button sal-ui__button_light i-cart">
 					<span>My cart</span>
 					<span>1050 items</span>
-				</div>
+				</div>*}
+				{section name=container loop=$containers.additional_2}
+					{$containers.additional_2[container].output}
+				{/section}
 
 			</div>
 

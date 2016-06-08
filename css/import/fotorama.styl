@@ -1,0 +1,24 @@
+.fotorama__nav--dots .fotorama__nav__frame {
+	width: 15px;
+	height: 25px;
+}
+
+.fotorama__dot {
+	border: none;
+	width: 8px;
+	height: 8px;
+	background: #cccccc;
+	border-radius: 4px;
+	transition: all .2s;
+}
+
+.fotorama__nav__frame.fotorama__active .fotorama__dot {
+	border: 0;
+	height: 8px;
+	width: 8px;
+	background: #8eb262;
+
+	&:after {
+		display: none;
+	}
+}

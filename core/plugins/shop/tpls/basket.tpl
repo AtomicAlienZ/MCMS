@@ -6,7 +6,7 @@
 				Empty
 			<!-- /ko -->
 			<!-- ko if: order() -->
-			<!-- ko text: Object.keys(order().items() || { }).length + ' items' --><!-- /ko -->
+			<!-- ko text: order().total() + ' items' --><!-- /ko -->
 			<!-- /ko -->
 		</span>
 	</div>
@@ -93,8 +93,18 @@ $(function () {
 						});
 				},
 				processOrder: function (data) {
+					var total = 0;
+
+					for (var i in data.items) {
+						if (data.items.hasOwnProperty(i)) {
+							total += data.items[i].quantity;
+						}
+					}
+
 					data.price = ko.observable(data.price);
 					data.items = ko.observable(data.items);
+
+					data.total = ko.observable(total);
 
 					VM.order(data);
 				}

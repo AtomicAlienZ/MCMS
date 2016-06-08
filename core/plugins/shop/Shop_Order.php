@@ -240,9 +240,9 @@ class Shop_Order {
 				$db->Execute('UPDATE `'.self::DB_DEPS_TABLE.'` SET `quantity` = `quantity` - '.$quantity.' WHERE `id` = '.$this->items[$item->getId()]['linkid']);
 			}
 			else {
-				unset($this->items[$item->getId()]);
-
 				$db->Execute('DELETE FROM `'.self::DB_DEPS_TABLE.'` WHERE `id` = '.$this->items[$item->getId()]['linkid']);
+				
+				unset($this->items[$item->getId()]);
 			}
 
 			$this->recalculatePrice();

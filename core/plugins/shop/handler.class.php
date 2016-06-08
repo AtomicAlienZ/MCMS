@@ -80,8 +80,6 @@ class shop_handler {
 		$action = isset($_GET['action']) ? $_GET['action'] : false;
 
 		// Item view
-
-		// Category view
 		if ($action == 'item') {
 			$return['item'] = Shop_Item::getById($id);
 			$this->_template = 'item';
@@ -93,6 +91,7 @@ class shop_handler {
 				$return['similar'] = Shop_Item::getRandomVisisble($return['item']->getIdCategory(), 10);
 			}
 		}
+		// Category view
 		elseif (!$action && $id) {
 			$return['category'] = Shop_Category::getById($id);
 			$this->_template = 'category';
@@ -110,6 +109,9 @@ class shop_handler {
 		// Categories list
 		else {
 			$return['tree'] = Shop_Category::getTree();
+
+			$return['sale'] = $return['popular'] = Shop_Item::getPopular(30);
+			$return['recommended'] = array_values(Shop_Item::getRecommended(2));
 		}
 
 		return $return;

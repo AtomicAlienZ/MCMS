@@ -1,4 +1,3 @@
-console.log(window);
 (function($, Cookie) {
 	$.fn.currencyConverter = function(o) {
 		var $scope = this,

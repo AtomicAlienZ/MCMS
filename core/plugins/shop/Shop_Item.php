@@ -383,6 +383,38 @@ class Shop_Item {
 		return $return;
 	}
 
+	public static function getPopular ($count) {
+		$return = array();
+
+		$db = cms_core::getDBC();
+
+		$result = cms_core::getDBC()->Execute('SELECT * FROM `'.self::DB_TABLE.'` WHERE `is_active` = "y" AND `is_banned` = "n" AND `is_popular` = "y" LIMIT '.(int)$count);
+
+		while ($tmp = $result->fetchRow()) {
+			$o = new self($tmp);
+
+			$return[$o->getId()] = $o;
+		}
+
+		return $return;
+	}
+
+	public static function getRecommended ($count) {
+		$return = array();
+
+		$db = cms_core::getDBC();
+
+		$result = cms_core::getDBC()->Execute('SELECT * FROM `'.self::DB_TABLE.'` WHERE `is_active` = "y" AND `is_banned` = "n" AND `is_recommended` = "y" LIMIT '.(int)$count);
+
+		while ($tmp = $result->fetchRow()) {
+			$o = new self($tmp);
+
+			$return[$o->getId()] = $o;
+		}
+
+		return $return;
+	}
+
 	public function save ($data, $files) {
 		$updarr = self::getInsUpdArray($data, $this);
 		$db = cms_core::getDBC();
@@ -440,6 +472,8 @@ class Shop_Item {
 		$return['fields'] = $this->fields;
 		$return['media'] = $this->media;
 		$return['is_active'] = $this->isActive();
+		$return['is_popular'] = $this->isPopular();
+		$return['is_recommended'] = $this->isRecommended();
 
 		return $return;
 	}
@@ -455,6 +489,8 @@ class Shop_Item {
 		$return['price'] = $this->getPrice();
 		$return['times_ordered'] = (int)$this->get('times_ordered');
 		$return['date'] = $this->get('datetime_created');
+		$return['is_popular'] = $this->isPopular();
+		$return['is_srecommended'] = $this->isRecommended();
 
 		return $return;
 	}
@@ -462,12 +498,26 @@ class Shop_Item {
 	public function getId()         { return (int)$this->id; }
 	public function isActive()      { return $this->get('is_active') == 'y'; }
 	public function isBanned()      { return $this->get('is_banned') == 'y'; }
+	public function isPopular()     { return $this->get('is_popular') == 'y'; }
+	public function isRecommended() { return $this->get('is_recommended') == 'y'; }
 	public function isVisible()     { return $this->isActive() && !$this->isBanned(); }
 	public function getName($lang)  { return $this->get('name', $lang); }
 	public function getDesc($lang)  { return $this->get('desc', $lang); }
 	public function getPrice()      { return (float)$this->get('price'); }
 	public function getIdCategory() { return (int)$this->get('id_category'); }
 	public function getMedia()      { return $this->media; }
+
+	public function getMediaActive() {
+		$return = array();
+
+		foreach ($this->media as $k=>$item) {
+			if ($item['active']) {
+				$return[$k] = $item;
+			}
+		}
+
+		return $return;
+	}
 
 	public function getMediaFirstImage() {
 		foreach ($this->media as $item) {

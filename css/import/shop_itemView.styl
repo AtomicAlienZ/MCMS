@@ -44,6 +44,53 @@
 			position: absolute;
 			left: 0;
 			top: 0;
+
+			&__noImage {
+				width: 100%;
+				padding-top: 100%;
+				border-radius: 4px;
+				box-shadow: 0 1px 2px rgba(#000, .1);
+				background: url('/svg/nophoto.svg') center center no-repeat;
+				background-size: cover;
+			}
+
+			&__fotorama {
+				padding: 3px;
+				margin: -3px;
+
+				&__item {
+					width: 100%;
+					padding-top: 100%;
+					background: center center no-repeat;
+					background-size: contain;
+				}
+
+				.fotorama__arr {
+					display: none;
+				}
+
+				.fotorama__stage {
+					border-radius: 4px;
+					box-shadow: 0 1px 2px rgba(#000, .1);
+				}
+
+				.fotorama__nav {
+					margin-top: 10px;
+				}
+
+				.fotorama__thumb {
+					border-radius: 4px;
+				}
+
+				.fotorama__thumb-border {
+					border-radius: 4px;
+					border-color: #8eb262;
+				}
+
+				.fotorama__nav.fotorama__shadows--right::after, .fotorama__nav.fotorama__shadows--left::before {
+					display: none;
+				}
+			}
 		}
 
 		&__buy {
@@ -107,6 +154,7 @@
 	}
 
 	&__similar {
+		position: relative;
 		&__title {
 			line-height: 70px;
 			font-weight: bold;
@@ -114,17 +162,9 @@
 			font-size: 20px;
 		}
 
-		&__items {
-			width: 100%;
-			white-space: nowrap;
-			overflow: auto;
-			height: 270px;
-		}
-
 		&__item {
 			display: inline-block;
 			width: 260px;
-			margin-left: 20px;
 			border: 0;
 			color: #505050;
 
