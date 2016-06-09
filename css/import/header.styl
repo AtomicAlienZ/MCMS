@@ -1,5 +1,6 @@
 .sal-header {
 	margin: 0 0 20px;
+	padding: 0 40px;
 
 	&__inner {
 		max-width: 1100px;
@@ -8,7 +9,8 @@
 
 	&__menu {
 		height: 40px;
-		padding: 0 20px;
+		padding: 0 40px;
+		margin: 0 -40px;
 
 		background-color: $sal-light-bg;
 
@@ -23,8 +25,6 @@
 		&__item {
 			margin-left: 20px;
 		}
-
-		margin-bottom: 20px;
 	}
 
 }
@@ -63,21 +63,16 @@
 
 .sal-mainLine {
 	display: flex;
+	flex-flow: row wrap;
 	align-items: center;
 	justify-content: space-between;
-
-	&>* {
-		margin-right: 20px;
-	}
-
-	&>*:last-child {
-		margin-right: 0;
-	}
 
 	.sal-logo {
 		display: block;
 		min-width: 200px;
 		height: 50px;
+		//margin-right: 20px;
+		margin-top: 20px;
 		//background-color: $sal-green;
 
 		background-image: url(../svg/logo.svg);
@@ -89,8 +84,11 @@
 	.sal-search {
 		display: flex;
 		align-items: center;
+		flex-shrink: 0;
+		margin-top: 20px;
+		//margin-right: 20px;
 
-		&>* {
+		&__phrase {
 			margin-right: 20px;
 		}
 
@@ -102,8 +100,8 @@
 	}
 
 	&__controls {
-
 		display: flex;
+		margin-top: 20px;
 
 		&>*:first-child {
 			margin-right: 20px;
@@ -111,13 +109,14 @@
 
 		.i-heart {
 			background-image: url(../svg/i-heart.svg);
+			flex-shrink: 0;
 		}
 
-		.i-cart {
-			background-image: url(../svg/i-cart.svg);
-		}
+		//.i-cart {
+		//	background-image: url(../svg/i-cart.svg);
+		//}
 
-		.i-heart, .i-cart {
+		.i-heart {
 			height: 50px;
 			padding-left: 45px;
 			padding-top: 5px;
@@ -147,14 +146,15 @@
 }
 
 .sal-categories {
-	padding: 10px 0;
+	padding: 5px 0;
 	margin: 20px 0 0;
 	border-top:    1px solid rgba(230, 230, 230, 1);
 	border-bottom: 1px solid rgba(230, 230, 230, 1);
 
-	display: flex;
+	//display: flex;
 
-	&>* {
-		margin-right: 20px;
+	&__item {
+		display: inline-block;
+		margin: 5px 20px 5px 0;
 	}
 }

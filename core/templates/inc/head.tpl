@@ -10,7 +10,7 @@
 <meta name="keywords" content="{$structure.meta_keywords}">
 
 <meta name="author" content="Mjolnir" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 <!-- !Meta Information -->
 
 <!-- Fonts -->
@@ -66,8 +66,13 @@
 					prevPage: $this.find('.js-slyScrollerPrev'),
 					nextPage: $this.find('.js-slyScrollerNext')
 				});
-//				.find('money').each(function () { $(this).trigger('cc:updated'); });
-//				.sly('on', 'load', function () { console.log(arguments, this.frame); });
+		});
+	});
+
+	$(window).on('resize orientationchange', function () {
+		$('.js-slyScroller').each(function () {
+			console.log('!');
+			$(this).find('.js-slyScroller__frame').sly('reload');
 		});
 	});
 </script>

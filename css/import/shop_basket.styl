@@ -19,6 +19,7 @@
 		padding-left: 45px;
 		padding-top: 5px;
 		background-image: url("../svg/i-cart.svg");
+		flex-shrink: 0;
 
 		&_open {
 			background-color: #8fb262;
@@ -145,6 +146,9 @@
 
 		&__item {
 			margin-top: 40px;
+			padding-left: 240px;
+			min-height: 200px;
+			position: relative;
 
 			&:after {
 				content: '';
@@ -154,12 +158,13 @@
 			}
 
 			&__image {
-				float: left;
+				position: absolute;
+				top: 0;
+				left: 0;
 				width: 200px;
 				height: 200px;
 				background: center center no-repeat;
 				background-size: cover;
-				margin-right: 40px;
 				border-radius: 4px;
 				box-shadow: 0 0 5px rgba(#000, .1);
 			}
@@ -170,6 +175,10 @@
 				border-bottom: 1px solid;
 				font-size: 14px;
 				color: #64b5f6;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				max-width: 100%;
 			}
 
 			&__info {

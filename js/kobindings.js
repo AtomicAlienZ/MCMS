@@ -34,12 +34,13 @@ ko.bindingHandlers.dropDown = {
 		}
 
 		$this.on('click', function (e) {
-			var $dropdown = $root.find('.js-common-dropDown__dropdown'),
-				vpHeight = $(window).height(),
+			var vpHeight = $(window).height(),
 				vpOffset = $(document).scrollTop(), // positive
 				rootHeight = $root.outerHeight(),
 				rootOffset,// = $root.offset().top,
 				dropHeight;
+
+			$dropdown = $root.find('.js-common-dropDown__dropdown');
 
 			e.preventDefault();
 

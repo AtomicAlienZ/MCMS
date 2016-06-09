@@ -30,9 +30,11 @@
 
 			</div>
 
-			{section name=container loop=$containers.additional_1}
-				{$containers.additional_1[container].output}
-			{/section}
+			{if isset($containers.additional_1)}
+				{section name=container loop=$containers.additional_1}
+					{$containers.additional_1[container].output}
+				{/section}
+			{/if}
 		</div>
 	</nav>
 
@@ -52,7 +54,7 @@
 			<div class="sal-mainLine__controls">
 
 				<div class="sal-ui__button sal-ui__button_light i-heart">
-					<span>Whislist</span>
+					<span>Wislist</span>
 					<span>No items</span>
 				</div>
 
